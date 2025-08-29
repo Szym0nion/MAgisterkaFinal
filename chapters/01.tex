@@ -1,0 +1,43 @@
+\chapter{Wstęp}
+
+\section{Cel i zakres pracy}
+Głównym celem niniejszej pracy jest kompleksowa analiza wpływu współczesnych mechanizmów bezpieczeństwa na ochronę prywatności użytkowników w systemach Internetu Rzeczy (IoT) oraz opracowanie rekomendacji optymalizujących ich wdrożenie. Praca koncentruje się na zbadaniu, w jaki sposób stosowane rozwiązania techniczne, takie jak szyfrowanie danych czy systemy uwierzytelniania, oddziałują na poziom bezpieczeństwa i prywatności w środowisku IoT. W szczególności analizowane są kompromisy między skutecznością ochrony danych a wydajnością systemów oraz zasobami ograniczonych urządzeń IoT.
+Przedmiotem analizy są zarówno teoretyczne aspekty bezpieczeństwa, jak i praktyczne testy w kontrolowanym środowisku, mające na celu weryfikację rzeczywistej skuteczności zabezpieczeń.
+Finalnym celem pracy jest opracowanie praktycznych rekomendacji optymalizujących bezpieczeństwo systemów IoT bez nadmiernego pogarszania ich funkcjonalności i wydajności. Dodatkowym celem jest podniesienie świadomości użytkowników oraz osób bezpośrednio zaangażowanych w pracę lub rozwój takich urządzeń, aby zwiększyć ich zdolność do identyfikacji zagrożeń i skutecznego wdrażania środków ochrony.
+\subsection{Hipotezy badawcze}
+W oparciu o cele pracy, sformułowano następujące hipotezy badawcze:
+
+\begin{enumerate}[]
+    \item \textbf{Hipoteza H1} - Stosowanie standardowych mechanizmów bezpieczeństwa (szyfrowanie danych, uwierzytelnianie, autoryzacja) znacząco zmniejsza ryzyko naruszenia prywatności użytkowników w systemach IoT.
+    \item \textbf{Hipoteza H2} - Niskokosztowe środki ochrony, jeśli są prawidłowo wdrożone, wykazują wysoką skuteczność przy minimalnym wpływie na wydajność urządzeń.
+    \item \textbf{Hipoteza H3} - Wiele popularnych urządzeń IoT nie spełnia wymogów regulacyjnych dotyczących ochrony danych, co zwiększa ryzyko prawne dla użytkowników i organizacji.
+    \item \textbf{Hipoteza H4} - Optymalizacja algorytmów bezpieczeństwa może znacząco poprawić równowagę między bezpieczeństwem, prywatnością a wydajnością systemów IoT.
+\end{enumerate}
+
+\section{Motywacja do podjęcia tematu}
+Dynamiczny rozwój Internetu Rzeczy (IoT), którego globalna skala według najnowszych danych osiągnęła już ponad 18 miliardów podłączonych urządzeń \cite{iotanalytics2024}, stanowi główną przesłankę do podjęcia niniejszych badań. Obszerne spektrum zastosowań IoT — od inteligentnych domów i urządzeń noszonych po infrastrukturę przemysłową (IIoT) — wskazuje na pilną potrzebę systemowej analizy efektywności współczesnych mechanizmów bezpieczeństwa. Istotnym aspektem problemu badawczego jest fundamentalny paradoks współczesnego IoT: z jednej strony potencjał usprawniający różne aspekty ludzkiego życia, z drugiej zaś — rosnące zagrożenia dla prywatności i bezpieczeństwa danych.
+
+Analiza głośnych przypadków naruszeń bezpieczeństwa, takich jak incydent z kamerami \hyperref[subsec:mirai]{Mirai} w 2021 roku, który dotknął ponad 500 000 użytkowników \cite{sharad2020mirai}, ujawnia systemowe słabości obecnych rozwiązań. Jednocześnie badania rynkowe wskazują, że wielu producentów urządzeń IoT priorytetowo traktuje funkcjonalność, marginalizując kwestie ochrony prywatności, co znajduje odzwierciedlenie w decyzjach konsumentów \cite{cisco2024}. Właśnie owo napięcie między innowacyjnością a bezpieczeństwem stało się kluczową przesłanką do podjęcia przedstawionych badań. 
+
+\section{Struktura pracy}
+Niniejsza praca ma na celu kompleksową analizę zagadnień związanych z bezpieczeństwem i prywatnością w systemach Internetu Rzeczy (IoT), ze szczególnym uwzględnieniem oceny istniejących mechanizmów zabezpieczających, ich testowania w kontrolowanym środowisku oraz propozycji optymalizacji. Struktura pracy została zaprojektowana tak, aby w logiczny sposób poprowadzić czytelnika od wprowadzenia teoretycznego, przez badania praktyczne, aż do sformułowania wniosków i rekomendacji.
+
+Praca składa się z ośmiu rozdziałów, których zawartość przedstawia się następująco:
+
+\textbf{\hyperref[chap:rozdzial2] {Rozdział 2: Wprowadzenie do IoT i związanych z nim zagrożeń}} - Wprowadzenie do IoT i związanych z nim zagrożeń
+Rozdział ten pełni rolę wprowadzenia teoretycznego w tematykę pracy. Zdefiniowane zostają kluczowe pojęcia związane z IoT, prywatnością i bezpieczeństwem danych. Przedstawiona jest ogromna różnorodność urządzeń IoT oraz architektury systemów, wraz z ich implikacjami dla bezpieczeństwa. Rozdział kończy się przeglądem najpoważniejszych i najczęściej spotykanych zagrożeń czyhających na ekosystemy IoT, stanowiąc teoretyczną podstawę dla dalszych badań.
+
+\textbf{\hyperref[chap:rozdzial3] {Rozdział 3: Zabezpieczenia w systemach IoT}} - W rozdziale tym przeprowadzona została szczegółowa analiza mechanizmów obronnych stosowanych w odpowiedzi na zidentyfikowane zagrożenia. Przedstawione są takie techniki jak szyfrowanie danych, uwierzytelnianie i autoryzacja, zarządzanie tożsamością (IAM) oraz zabezpieczenia protokołów komunikacyjnych. Dodatkowo, rozdział omawia kluczowe wyzwania, takie jak ryzyko wycieku danych, śledzenie użytkowników oraz brak standaryzacji, a także ocenia wpływ stosowanych zabezpieczeń na prywatność użytkowników końcowych.
+
+\textbf{\hyperref[chap:rozdzial4] {Rozdział 4: Projekt środowiska testowego dla systemów IoT}} - Rozdział czwarty ma charakter metodologiczny i opisuje praktyczne przygotowania do badań. Zawiera opis zaprojektowanego i wdrożonego kontrolowanego środowiska testowego, w tym kryteria doboru urządzeń, platform i protokołów IoT. Kluczowym elementem tego rozdziału jest opracowanie szczegółowych scenariuszy testowych symulujących realne ataki, takie atak typu Man-in-the-Middle (MITM), przechwytywanie danych, nieautoryzowany dostęp oraz ataki Denial of Service (DoS/DDoS).
+
+\textbf{\hyperref[chap:rozdzial5] {Rozdział 5: Testowanie zabezpieczeń IoT}} - W tym rozdziale przedstawione zostały proces i wyniki praktycznych testów bezpieczeństwa przeprowadzonych w zaprojektowanym środowisku. Opisana została przyjęta metodologia testów oraz narzędzia wykorzystane do ich przeprowadzenia. Przedstawiona jest szczegółowa ocena skuteczności zabezpieczeń badanych systemów IoT, głównie pod kątem ich odporności na różne typy ataków. Rozdział kończy się podsumowaniem wyników testów, wskazującym na słabe i mocne strony analizowanych rozwiązań.
+
+\textbf{\hyperref[chap:rozdzial6] {Rozdział 6: Zgodność zabezpieczeń IoT z regulacjami dotyczącymi prywatności}} - Rozdział szósty przenosi analizę z płaszczyzny technicznej na prawno-regulacyjną. Zawiera przegląd kluczowych regulacji prawnych dotyczących ochrony danych, takich jak RODO czy HIPAA, oraz analizę wymagań stawianych systemom IoT przez te akty prawne. Ocena zgodności przeprowadzona jest w kontekście wyników testów z rozdziału 5 oraz omówionych mechanizmów zabezpieczeń z rozdziału 3. Rozdział kończy się cząstkowymi wnioskami dotyczącymi prawnego wymiaru bezpieczeństwa IoT.
+
+\textbf{\hyperref[chap:rozdzial7] {Rozdział 7: Optymalizacja mechanizmów zabezpieczeń w IoT}} - Na podstawie wniosków wyciągniętych z części teoretycznej i praktycznej, w rozdziale siódmym zaproponowane zostały kierunki optymalizacji istniejących rozwiązań. Dotyczą one m.in. zastosowania lekkich algorytmów szyfrowania, lepszego równoważenia między bezpieczeństwem, prywatnością a wydajnością urządzeń oraz wykorzystania zaawansowanych technologii, takich jak sztuczna inteligencja, do dynamicznego zarządzania ryzykiem. Przedstawione są także propozycje nowych standardów ochrony prywatności.
+
+\textbf{\hyperref[chap:rozdzial8] {Rozdizał 8: Wnioski i rekomendacje}} - Ostatni rozdział pracy zawiera podsumowanie całego projektu badawczego, syntezę najważniejszych ustaleń i końcowych wniosków. Wskazane zostały napotkane w trakcie badań problemy i ograniczenia. Na końcu sformułowane są praktyczne rekomendacje dla twórców urządzeń, administratorów systemów oraz użytkowników końcowych, a także propozycje przyszłych obszarów badań w dziedzinie bezpieczeństwa i prywatności IoT.
+
+
+

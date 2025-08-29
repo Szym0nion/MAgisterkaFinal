@@ -1,0 +1,167 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                             %
+% PERSONALIZACJa PRACY                        %
+%                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% dane autora
+\newcommand{\FirstNameAuthor}{Szymon}
+\newcommand{\SurnameAuthor}{Chmielewski}
+\newcommand{\IdAuthor}{298498}   % numer albumu  (bez $\langle$ i $\rangle$)
+
+% drugi autor:
+%\newcommand{\FirstNameCoauthor}{Imię}   % Jeżeli jest drugi autor, to tutaj należy podać imię.
+%\newcommand{\SurnameCoauthor}{Nazwisko} % Jeżeli jest drugi autor, to tutaj należy podać nazwisko.
+%\newcommand{\IdCoauthor}{$\langle$wpisać właściwy$\rangle$}  % numer albumu drugiego autora (bez $\langle$ i $\rangle$)
+% Gdy nie ma drugiego autora, należy zostawić poniższe definicje puste, jak poniżej. Gdy jest drugi autor, należy zakomentować te linie.
+\newcommand{\FirstNameCoauthor}{} % Jeżeli praca ma tylko jednego autora, to dane drugiego autora zostają puste.
+\newcommand{\SurnameCoauthor}{}   % Jeżeli praca ma tylko jednego autora, to dane drugiego autora zostają puste.
+\newcommand{\IdCoauthor}{}  % Jeżeli praca ma tylko jednego autora, to dane drugiego autora zostają puste.
+%%%%%%%%%%
+
+\newcommand{\Supervisor}{Dr inż. Dominik Samociuk}     % dane promotora (bez $\langle$ i $\rangle$)
+\newcommand{\Title}{Badanie wpływu zabezpieczeń w systemach IoT na prywatność i bezpieczeństwo użytkowników}           % tytuł pracy po polsku
+\newcommand{\TitleAlt}{Study of the Impact of Security Measures in IoT Systems on User Privacy and Security}                     % thesis title in English
+\newcommand{\Program}{Informatyka}            % kierunek studiów  (bez $\langle$ i $\rangle$)
+\newcommand{\Specialisation}{Internet i technologie sieciowe}     % specjalność  (bez $\langle$ i $\rangle$)
+\newcommand{\Departament}{Sieci i Systemów Komputerowych}        % katedra promotora  (bez $\langle$ i $\rangle$)
+\newcommand{\Consultant}{} % brak promotowa pomocniczego / opiekuna
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                             %
+% PAKIETY, MAKRA, USTAWIENIA ITD.             %
+%                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{config/settings.tex} 
+\input{config/my-settings.tex} 
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{rotating} 
+\usepackage{graphicx} 
+\usepackage{array}    
+\usepackage{booktabs} 
+\usepackage{lipsum}   
+\usepackage{pdflscape}
+
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  commentstyle=\color{gray},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,
+  frame=single,
+  breaklines=true,
+  showstringspaces=false,
+}
+
+\begin{document}
+%\kslistofremarks
+
+\frontmatter
+\input{config/titlepage.tex}
+
+
+
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  commentstyle=\color{gray},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,
+  frame=single,
+  breaklines=true,
+  showstringspaces=false,
+}
+
+
+\cleardoublepage
+
+\rmfamily\normalfont
+\pagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                             %
+% CHAPTER 0                                   %
+%                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{chapters/00.tex} % informacje redakcyjne
+
+%%%%%%%%%%%%%%%%%% SPIS TRESCI %%%%%%%%%%%%%%%%%%%%%%
+% Add \thispagestyle{empty} to the toc file (main.toc), because \pagestyle{empty} doesn't work if the TOC has multiple pages
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{stronyPozaNumeracja}{\value{page}}
+\mainmatter
+\pagestyle{empty}
+
+\cleardoublepage
+
+\pagestyle{NumeryStronNazwyRozdzialow}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                             %
+% TREŚĆ WŁAŚCIWA PRACY                        %
+%                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% TODO
+\input{chapters/01.tex}  
+
+% TODO
+\input{chapters/02.tex} 
+
+% TODO
+\input{chapters/03.tex} 
+
+% TODO
+\input{chapters/04.tex}
+
+% TODO
+\input{chapters/05.tex} 
+
+\input{chapters/06.tex}
+
+\input{chapters/07.tex} 
+
+\input{chapters/08.tex}
+
+\backmatter
+
+
+\printbibliography[title={Bibliografia}, heading=bibintoc]
+
+\begin{appendices}
+
+\input{chapters/09p.tex}
+
+% TODO
+\input{chapters/07p.tex} % Spis skrótów i symboli
+
+% TODO
+\input{chapters/08p.tex} % Lista dodatkowych plików, uzupełniających tekst pracy – jeżeli dotyczny, w przecinym razie – zakomentuj!
+
+\listoffigures
+\addcontentsline{toc}{chapter}{Spis rysunków}
+\listoftables
+\addcontentsline{toc}{chapter}{Spis tabel}
+
+\end{appendices}
+
+\end{document}
+
+
+%% Finis coronat opus.
+

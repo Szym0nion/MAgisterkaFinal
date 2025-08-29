@@ -1,0 +1,270 @@
+\chapter{Zabezpieczenia w systemach IoT}
+\label{chap:rozdzial3}
+\section{Przegląd zabezpieczeń stosowanych w systemach IoT}
+Dynamiczny rozwój IoT pociąga za sobą liczne wyzwania z zakresu cyberbezpieczeństwa. Ze względu na ogromną liczbę urządzeń, różnorodność architektur oraz ograniczenia sprzętowe, projektowanie skutecznych zabezpieczeń w systemach IoT wymaga szczególnej uwagi.
+W tej sekcji zostanie przedstawiony przegląd najważniejszych zabezpieczeń stosowanych w systemach IoT, które mają na celu ochronę danych, urządzeń oraz komunikacji w sieciach IoT.
+\subsection{Szyfrowanie danych}
+Jednym z podstawowych środków ochrony danych w systemach IoT jest szyfrowanie. Chroni ono informacje przesyłane między urządzeniami brzegowymi, bramkami a serwerami centralnymi przed nieautoryzowanym dostępem, modyfikacją lub podsłuchem. W środowisku IoT, gdzie często występują ograniczenia zasobów (moc obliczeniowa, pamięć, zużycie energii), wybór odpowiednich algorytmów szyfrujących jest kluczowy dla zachowania równowagi między bezpieczeństwem a wydajnością.
+
+W praktyce stosuje się zarówno algorytmy szyfrowania symetrycznego, jak i asymetrycznego:
+\begin{itemize}
+    \item \textbf{AES (Advanced Encryption Standard)} – jest najczęściej stosowanym algorytmem szyfrowania symetrycznego w systemach IoT. Oferuje wysoki poziom bezpieczeństwa przy stosunkowo niskim zapotrzebowaniu na zasoby, co czyni go odpowiednim dla urządzeń o ograniczonych możliwościach. Typowe długości kluczy to 128, 192 lub 256 bitów. AES jest powszechnie wykorzystywany w transmisji danych, np. w komunikacji Bluetooth, Zigbee, LoRaWAN czy TLS.
+    
+    \item \textbf{RSA} – klasyczny algorytm kryptografii asymetrycznej, stosowany głównie do wymiany kluczy szyfrowania lub podpisów cyfrowych. Choć zapewnia wysoki poziom bezpieczeństwa, jego implementacja może być zbyt zasobożerna dla wielu małych urządzeń IoT.
+    
+    \item \textbf{ECC (Elliptic Curve Cryptography)} - nowocześniejsza alternatywa dla RSA. Dzięki mniejszym kluczom (np. 256-bitowy klucz ECC oferuje porównywalne bezpieczeństwo do 3072-bitowego RSA), ECC jest lepiej dostosowana do wymagań środowisk IoT. Jest szeroko stosowana w certyfikatach cyfrowych, podpisach oraz uwierzytelnianiu urządzeń \cite{nist_keylength}.
+\end{itemize}
+
+Dodatkowo, w zaawansowanych systemach stosuje się często połączenie obu podejść w tzw. kryptografii hybrydowej – asymetryczna kryptografia służy do bezpiecznej wymiany klucza sesyjnego, po czym dalsza komunikacja odbywa się z użyciem szyfrowania symetrycznego.
+
+Warto również wspomnieć o istotnej roli zarządzania kluczami (key management), które w systemach rozproszonych, takich jak IoT, stanowi jedno z największych wyzwań w zakresie bezpieczeństwa. Niewłaściwe przechowywanie, dystrybucja lub rotacja kluczy może zniweczyć skuteczność nawet najsilniejszych algorytmów szyfrowania.
+
+\subsection{Autoryzacja i uwierzytelnianie}
+W systemach IoT krytyczne znaczenie ma zapewnienie, że jedynie uprawnione urządzenia oraz użytkownicy mają dostęp do zasobów i funkcji systemu. Ochrona przed nieautoryzowanym dostępem odbywa się na dwóch kluczowych poziomach:
+
+\textbf{Uwierzytelnienie} - proces weryfikacji tożsamości użytkownika lub urządzenia. Ma na celu potwierdzenie, że dany podmiot jest tym, za kogo się podaje.
+W środowisku IoT, gdzie urządzenia często komunikują się automatycznie bez udziału człowieka, uwierzytelnianie musi być zarówno bezpieczne, jak i lekkie obliczeniowo.
+\begin{itemize}
+    \item \textbf{Uwierzytelnianie dwuskładnikowe (2FA)} — stosowane najczęściej po stronie użytkowników końcowych, wymaga podania dwóch niezależnych elementów (np. hasła i kodu SMS lub aplikacji uwierzytelniającej). Zmniejsza ryzyko przejęcia konta nawet w przypadku kradzieży jednego składnika.
+    
+    \item \textbf{Certyfikaty X.509} — szeroko stosowane w komunikacji typu urządzenie-urządzenie (\textit{device-to-device}) oraz urządzenie-serwer (\textit{device-to-server}). Umożliwiają wzajemne uwierzytelnianie przy pomocy infrastruktury klucza publicznego (PKI). Certyfikaty te zawierają m.in. klucz publiczny, tożsamość właściciela oraz podpis urzędu certyfikacji (CA) \cite{stallings2017cryptography}.
+    
+    \item \textbf{Uwierzytelnianie oparte na kluczach symetrycznych} — wykorzystywane w urządzeniach o bardzo ograniczonych zasobach, gdzie przechowywany jest wspólny sekret. Rozwiązanie to jest wydajne, lecz trudniejsze w zarządzaniu w większych systemach z wieloma uczestnikami.
+\end{itemize}
+Po pomyślnym uwierzytelnieniu użytkownik lub urządzenie uzyskuje prawa dostępu do określonych zasobów systemu. Autoryzacja może być oparta na rolach, zasadach lub tokenach.
+
+\textbf{Autoryzacja} - proces przyznawania uprawnień do określonych zasobów lub działań po uprzednim uwierzytelnieniu. Określa, co dany użytkownik lub urządzenie może zrobić w systemie.
+\begin{itemize}
+    \item \textbf{OAuth 2.0} — protokół autoryzacji, który pozwala aplikacjom zewnętrznym na dostęp do zasobów użytkownika bez potrzeby udostępniania hasła. Powszechnie używany w aplikacjach mobilnych i chmurowych \cite{hardt2012oauth}.
+    
+    \item \textbf{JWT (JSON Web Token)} — samopodpisany token zawierający dane o użytkowniku i jego uprawnieniach, używany w rozproszonych systemach IoT do autoryzacji żądań API \cite{jones2015jwt}.
+\end{itemize}
+
+\textbf{Modele autoryzacji RBAC i ABAC:}
+\begin{itemize}
+    \item \textbf{RBAC (Role-Based Access Control)} — użytkownicy przypisani są do ról, a role definiują dostęp do zasobów. Popularne w dużych systemach z wieloma użytkownikami.
+    
+    \item \textbf{ABAC (Attribute-Based Access Control)} — decyzje o dostępie podejmowane są na podstawie atrybutów użytkownika, zasobu oraz kontekstu (np. lokalizacji, czasu) \cite{sicari2015security}.
+\end{itemize}
+
+W praktyce, skuteczne zabezpieczenie systemów IoT wymaga stosowania obu mechanizmów — uwierzytelniania w celu potwierdzenia tożsamości oraz autoryzacji w celu kontroli dostępu. Wyzwania w tym zakresie obejmują m.in. skalowalność systemów zarządzania tożsamościami, ochronę prywatności użytkowników oraz ograniczenia sprzętowe wielu urządzeń końcowych.
+
+\subsection{Zarządzanie tożsamością i integracja z systemami IAM}
+
+Zarządzanie tożsamością (ang. Identity and Access Management, IAM) w środowisku IoT obejmuje procesy nadawania, kontrolowania i weryfikowania tożsamości zarówno użytkowników, jak i urządzeń. W praktyce oznacza to przypisywanie unikalnych identyfikatorów, nadawanie odpowiednich uprawnień oraz kontrolę dostępu do zasobów i usług w sposób zautomatyzowany i skalowalny \cite{microsoftIAM}.
+
+IAM odgrywa kluczową rolę w:
+\begin{itemize}
+    \item zarządzaniu cyklem życia urządzeń (rejestracja, uwierzytelnianie, dezaktywacja),
+    
+    \item zapewnianiu spójnej polityki dostępu w zróżnicowanych środowiskach,
+    
+    \item integracji z chmurą, aplikacjami mobilnymi i systemami klasy enterprise.
+\end{itemize}
+
+\subsubsection*{Zarządzanie tożsamością użytkowników i integracja z korporacyjnymi systemami}
+
+W organizacjach IoT często integrowane są z istniejącymi systemami IAM, co umożliwia centralne zarządzanie uprawnieniami i jednolite stosowanie polityk bezpieczeństwa.
+
+\begin{itemize}
+    \item \textbf{LDAP (Lightweight Directory Access Protocol)} – protokół umożliwiający przeszukiwanie i modyfikację danych w usługach katalogowych, takich jak OpenLDAP czy Active Directory. Używany do autoryzacji i uwierzytelniania użytkowników i urządzeń.
+    
+    \item \textbf{Active Directory} – usługa katalogowa firmy Microsoft, szeroko stosowana w środowiskach korporacyjnych. Może pełnić funkcję repozytorium tożsamości urządzeń IoT dzięki integracji z rozwiązaniami gatewayowymi i brokerami IoT \cite{microsoftIAMiot}.
+
+    \item \textbf{SAML (Security Assertion Markup Language)} – standard wymiany uwierzytelnionych danych między podmiotami (identity providers i service providers). Umożliwia jednokrotne logowanie (SSO) i jest wykorzystywany np. przy integracji z aplikacjami chmurowymi \cite{microsoftSAML}.
+    
+    \item \textbf{OpenID Connect} – protokół uwierzytelniania oparty na OAuth 2.0, stosowany w nowoczesnych aplikacjach webowych i mobilnych. Coraz częściej wykorzystywany również w rozwiązaniach IoT z interfejsem użytkownika \cite{microsoftOIDC}.
+\end{itemize}
+
+\subsubsection*{Zarządzanie tożsamością urządzeń (IoT IAM)}
+
+IAM dla urządzeń różni się znacząco od klasycznego IAM dla ludzi, ponieważ:
+
+\begin{itemize}
+    \item każde urządzenie musi mieć unikalną, trudną do podrobienia tożsamość,
+    
+    \item proces rejestracji i provisioning musi być możliwie zautomatyzowany,
+    
+    \item uprawnienia muszą być nadawane w sposób dynamiczny, często zależnie od lokalizacji, czasu lub stanu urządzenia.
+\end{itemize}
+
+Popularne podejścia obejmują:
+\begin{itemize}
+    \item \textbf{Zarządzanie certyfikatami (PKI)} – urządzenia identyfikowane na podstawie certyfikatów X.509 i kluczy kryptograficznych.
+    
+    \item \textbf{IAM-as-a-Service} – usługi chmurowe (np. AWS IoT Core, Azure IoT Hub) oferujące rejestrację, uwierzytelnianie i kontrolę dostępu jako usługę.
+\end{itemize}
+
+Efektywne IAM w IoT jest fundamentem zaufanego środowiska cyfrowego, w którym urządzenia i użytkownicy mogą bezpiecznie współpracować zgodnie z zasadą najmniejszych uprawnień.
+
+\subsection{Protokoły komunikacyjne i ich zabezpieczenia}
+
+W systemach IoT wykorzystywane są różnorodne protokoły komunikacyjne, dostosowane do specyfiki urządzeń, wymagań dotyczących zużycia energii oraz zakresu transmisji. Każdy z nich implementuje własne mechanizmy bezpieczeństwa, mające na celu ochronę danych przesyłanych między urządzeniami oraz zapobieganie atakom sieciowym.
+
+\begin{itemize}
+    \item \textbf{MQTT (Message Queuing Telemetry Transport)} – jest to lekki protokół publikacji/subskrypcji, zoptymalizowany pod kątem urządzeń o ograniczonych zasobach oraz sieci o niskiej przepustowości. MQTT sam w sobie nie posiada wbudowanych mechanizmów bezpieczeństwa, dlatego najczęściej stosuje się go w połączeniu z warstwą TLS (Transport Layer Security), która zapewnia szyfrowanie transmisji oraz uwierzytelnianie serwera. Dodatkowo, do zabezpieczenia dostępu do brokera MQTT stosowane są mechanizmy uwierzytelniania z wykorzystaniem nazw użytkowników i haseł, a także tokenów dostępu, co pozwala na kontrolę autoryzacji urządzeń \cite{light2017mqtt}.
+
+    \item \textbf{CoAP (Constrained Application Protocol)} – protokół zaprojektowany dla sieci o ograniczonych zasobach, takich jak sensorowe sieci bezprzewodowe. CoAP działa na bazie UDP, co pozwala na niskie opóźnienia i minimalizację zużycia energii. Bezpieczeństwo w CoAP zapewnia protokół DTLS (Datagram Transport Layer Security), który dostarcza uwierzytelnianie, integralność i szyfrowanie danych przesyłanych przez UDP, chroniąc przed podsłuchiwaniem i modyfikacją komunikatów \cite{shelby2014constrained}.
+
+    \item \textbf{Zigbee} – standard komunikacji bezprzewodowej dedykowany urządzeniom o niskim poborze energii i krótkim zasięgu. Zigbee oferuje zabezpieczenia na poziomie warstwy sieciowej i aplikacyjnej, m.in. szyfrowanie AES-128, uwierzytelnianie urządzeń oraz mechanizmy ochrony przed replay attack. Zarządzanie kluczami kryptograficznymi w Zigbee umożliwia dynamiczne tworzenie i dystrybucję kluczy, co zwiększa odporność na próby przechwycenia komunikacji \cite{zigbeeAlliance}.
+
+    \item \textbf{LoRaWAN (Long Range Wide Area Network)} – protokół dedykowany długodystansowej komunikacji urządzeń IoT o bardzo niskim zużyciu energii. LoRaWAN zapewnia bezpieczeństwo na dwóch poziomach: warstwy sieciowej oraz aplikacyjnej. Uwierzytelnianie urządzeń odbywa się poprzez unikalne klucze sesji, a dane przesyłane są szyfrowane z wykorzystaniem algorytmu AES-128. Takie podejście chroni prywatność danych oraz zabezpiecza przed nieautoryzowanym dostępem do sieci \cite{adelantado2017understanding}.
+
+    \item \textbf{Bluetooth Low Energy (BLE)} – protokół bezprzewodowej komunikacji krótkiego zasięgu, często stosowany w urządzeniach IoT osobistego użytku. BLE stosuje mechanizmy zabezpieczeń oparte na procesie parowania urządzeń, który może wykorzystywać różne metody uwierzytelniania, w tym kod PIN, Just Works, Numeric Comparison czy Passkey Entry. Po sparowaniu, komunikacja jest zabezpieczona szyfrowaniem linku, co chroni przed podsłuchiwaniem oraz ingerencją osób trzecich \cite{bleSpec}.
+
+\end{itemize}
+
+Warto podkreślić, że mimo wbudowanych mechanizmów zabezpieczeń, skuteczność ochrony zależy również od prawidłowej konfiguracji protokołów oraz stosowania najlepszych praktyk, takich jak regularna aktualizacja oprogramowania, zarządzanie kluczami kryptograficznymi i monitoring sieci. W dobie rosnącej liczby urządzeń IoT, zabezpieczenie komunikacji jest jednym z kluczowych elementów zapewniających integralność, poufność oraz dostępność systemów.
+Szczegółowe zestawienie właściwości i zabezpieczeń najpopularniejszych protokołów IoT przedstawiono w tabeli \ref{tab:iot_protocols_security}.
+\begin{landscape}
+\vspace*{2cm}
+\renewcommand{\arraystretch}{1.3} 
+\setlength{\tabcolsep}{4pt} 
+\begin{table}[htbp]
+\centering
+\small 
+\caption{Porównanie protokołów komunikacyjnych i ich zabezpieczeń w systemach IoT}
+\label{tab:iot_protocols_security}
+\begin{tabular}{|l|l|l|p{4cm}|p{3.5cm}|l|l|}
+\hline
+\textbf{Protokoł} & \textbf{Typ transportu} & \textbf{Bezpieczeństwo} & \textbf{Mechanizmy zabezpieczeń} & \textbf{Zastosowanie} & \textbf{Zużycie energii} & \textbf{Zasięg}\cite{sicari2015security} \\ \hline
+MQTT & TCP & TLS (SSL) & Uwierzytelnianie przez hasła, TLS & Telemetria, M2M, niskie opóźnienia & Niskie & Krótki / średni \\ \hline
+CoAP & UDP & DTLS & Szyfrowanie DTLS, uwierzytelnianie & Sieci sensorowe, urządzenia ograniczone & Bardzo niskie & Krótki \\ \hline
+Zigbee & IEEE 802.15.4 & AES-128 & Szyfrowanie, uwierzytelnianie, klucze sesji & Automatyka domowa, niskopoborowe urządzenia & Bardzo niskie & Krótki (10-100 m) \\ \hline
+LoRaWAN & Sub-GHz radio & AES-128 & Uwierzytelnianie urządzeń, szyfrowanie danych & Długodystansowe IoT, niskie zużycie energii & Bardzo niskie & Długi (kilometry) \\ \hline
+BLE & RF (2.4 GHz) & Szyfrowanie linku, parowanie & Parowanie, uwierzytelnianie, szyfrowanie & Wearables, IoT krótkiego zasięgu & Niskie & Krótki (do 100 m) \\ \hline
+\label{tab:iot_protocols_security}
+\end{tabular}
+\end{table}
+\end{landscape}
+
+
+
+\subsection{Dodatkowe techniki zabezpieczeń w IoT}
+Oprócz wymienionych wcześniej zabezpieczeń, w systemach IoT stosuje się również inne techniki, które mają na celu zwiększenie bezpieczeństwa:
+\begin{itemize}
+    \item \textbf{Segmentacja sieci} - polega na podziale sieci IoT na mniejsze, izolowane segmenty lub strefy bezpieczeństwa. Dzięki temu w przypadku naruszenia jednego segmentu atak nie rozprzestrzenia się na cały system, co minimalizuje ryzyko i ułatwia zarządzanie bezpieczeństwem.
+    
+    \item \textbf{Monitorowanie i analiza ruchu sieciowego} - zaawansowane systemy wykrywające anomalie i analityka ruchu sieciowego pozwalają na identyfikację nietypowych zachowań, potencjalnych prób ataku oraz wczesne reagowanie na zagrożenia. Coraz częściej wykorzystywane są metody oparte na uczeniu maszynowym do automatycznej detekcji nieprawidłowości.
+    
+    \item \textbf{Aktualizacej OTA (Over-The-Air)} - umożliwiają zdalne i bezpieczne dostarczanie poprawek oraz nowych wersji oprogramowania na urządzenia IoT bez konieczności fizycznej ingerencji. Kluczowe jest tu zabezpieczenie procesu aktualizacji, np. przez cyfrowe podpisy aktualizacji, aby zapobiec wgraniu złośliwego oprogramowania \cite{android_ota}.
+    
+    \item \textbf{Zaufany komponent (Trusted Platform Module, TPM)} - jest to sprzętowy moduł zabezpieczający, który przechowuje klucze kryptograficzne, certyfikaty i inne wrażliwe dane w izolowanym środowisku. TPM umożliwia m.in. bezpieczne generowanie kluczy, uwierzytelnianie urządzenia oraz zapewnia integralność systemu \cite{tpm}.
+    
+    \item \textbf{Bezpieczne bootowanie (Secure Boot)} – mechanizm, który zapewnia, że urządzenie uruchamia tylko zweryfikowane i autoryzowane oprogramowanie, co zapobiega uruchomieniu złośliwego kodu na poziomie startu systemu.
+    
+    \item \textbf{Hardware Security Modules (HSM)} – dedykowane, fizyczne urządzenia lub moduły zabezpieczające o wysokim poziomie ochrony, wykorzystywane do zarządzania kluczami kryptograficznymi oraz realizacji operacji kryptograficznych w bezpiecznym środowisku sprzętowym.
+    
+    \item \textbf{Zarządzanie cyklem życia urządzenia} – ścisła kontrola i monitorowanie urządzeń IoT od momentu produkcji, przez wdrożenie, eksploatację, aż do utylizacji, co pomaga zapobiegać wykorzystaniu podatnych lub nieautoryzowanych urządzeń w sieci.
+\end{itemize}
+
+\section{Wyzwania związane z prywatnością i bezpieczeństwem w IoT}
+Wraz z rosnącą liczbą urządzeń IoT w życiu codziennym oraz sektorze przemysłowym, wzrasta liczba potencjalnych zagrożeń związanych z prywatnością użytkowników i bezpieczeństwem danych. Systemy te często operują w rozproszonym środowisku, gromadząc i przetwarzając duże ilości danych, w tym dane osobowe. W rezultacie pojawiają się nowe wyzwania, których nie sposób zignorować przy projektowaniu i wdrażaniu rozwiązań IoT.
+\subsection{Wyciek danych osobowych}
+Jednym z najpoważniejszych problemów związanych z Internetem Rzeczy (IoT) jest ryzyko wycieku danych osobowych. Urządzenia IoT, takie jak inteligentne kamery monitoringu, opaski fitness, asystenci głosowi czy inteligentne liczniki energii, na bieżąco zbierają ogromne ilości informacji o użytkownikach i ich otoczeniu. Dane te obejmują między innymi szczegółowe informacje o lokalizacji, stanie zdrowia, codziennych nawykach, preferencjach zakupowych, a także dane środowiskowe, które mogą pośrednio ujawniać informacje o stylu życia czy aktywnościach użytkownika.
+
+Ze względu na specyfikę i często ograniczone zasoby urządzeń IoT, w tym ograniczoną moc obliczeniową i pamięć, zabezpieczenia danych mogą być niewystarczające lub nieaktualne.
+Konsekwencje wycieku danych osobowych są wielowymiarowe. Poza bezpośrednim zagrożeniem dla prywatności użytkowników, mogą wystąpić także skutki prawne i finansowe dla producentów i operatorów urządzeń IoT. W Unii Europejskiej obowiązuje Rozporządzenie o Ochronie Danych Osobowych (RODO), które nakłada na firmy obowiązek odpowiedniego zabezpieczenia danych osobowych oraz zgłaszania incydentów naruszenia bezpieczeństwa danych w określonym czasie. Naruszenie tych przepisów może skutkować wysokimi karami finansowymi i utratą reputacji.
+\subsection{Śledzenie aktywności użytkowników}
+Urządzenia IoT coraz częściej stają się integralną częścią codziennego życia, dostarczając danych na temat aktywności, nawyków oraz zachowań swoich użytkowników. Takie dane mogą pochodzić z różnorodnych źródeł — inteligentnych zegarków, opasek fitness, asystentów głosowych, kamer monitoringu, systemów automatyki domowej czy nawet inteligentnych urządzeń AGD.
+
+Gromadzenie i analiza tych informacji pozwala na dostarczanie spersonalizowanych usług, poprawę wygody użytkownika oraz optymalizację funkcjonowania urządzeń. Jednak równocześnie niesie to za sobą poważne zagrożenia związane z prywatnością i bezpieczeństwem:
+
+\begin{itemize}
+\item \textbf{Nieautoryzowane śledzenie} — jeżeli dane nie są odpowiednio chronione, osoby trzecie mogą przechwycić szczegółowe informacje dotyczące ruchów, lokalizacji i codziennych rutyn użytkownika. Może to prowadzić do profilowania oraz tworzenia dokładnych map zachowań.
+
+\item \textbf{Brak przejrzystości i świadomej zgody} — często użytkownicy nie są w pełni informowani o tym, jakie dane są zbierane i w jakim celu, a proces uzyskiwania zgody bywa niejasny lub ukryty w długich i skomplikowanych regulaminach.
+
+\item \textbf{Wykorzystanie danych do celów komercyjnych} — dane mogą być sprzedawane lub udostępniane firmom marketingowym, które na ich podstawie prowadzą ukierunkowane kampanie reklamowe, czasem bez wiedzy lub zgody użytkownika.
+
+\item \textbf{Potencjalne wykorzystanie w celach przestępczych} — informacje o tym, kiedy użytkownicy są obecni lub nieobecni w domu, mogą zostać wykorzystane przez osoby o złych intencjach, np. do planowania włamań czy innych form nadużyć.
+
+\item \textbf{Ryzyko inwigilacji} — w niektórych przypadkach dane zbierane przez IoT mogą być wykorzystywane przez organy państwowe lub inne podmioty do nadzoru nad obywatelami, co rodzi obawy dotyczące praw człowieka i wolności obywatelskich.
+\end{itemize}
+
+Zarządzanie tym ryzykiem wymaga wdrożenia odpowiednich środków technicznych i organizacyjnych. W praktyce powinno się stosować zasady minimalizacji danych — gromadzenie wyłącznie tych informacji, które są niezbędne do działania urządzenia lub świadczenia usługi. Istotne jest także stosowanie transparentnych polityk prywatności, które jasno komunikują użytkownikom zakres i cel przetwarzania danych.
+
+Dodatkowo, rozwiązania techniczne takie jak anonimizacja i pseudonimizacja danych mogą ograniczyć możliwość identyfikacji osób na podstawie zgromadzonych informacji. Ponadto, użytkownicy powinni mieć łatwy dostęp do zarządzania swoimi danymi — możliwość ich przeglądania, modyfikacji oraz usuwania.
+
+Ostatecznie, ochrona prywatności w IoT wymaga współpracy producentów urządzeń, dostawców usług oraz regulacji prawnych, które będą wymuszać transparentność i odpowiedzialne zarządzanie danymi użytkowników.
+\subsection{Brak standaryzacji zabezpieczeń IoT}
+
+Ekosystem Internetu Rzeczy charakteryzuje się niezwykłą różnorodnością – obejmuje miliardy urządzeń produkowanych przez setki, a nawet tysiące różnych firm, które wykorzystują odmienne technologie, protokoły komunikacyjne oraz systemy operacyjne. Taka fragmentacja przekłada się na poważne wyzwania w zakresie bezpieczeństwa, wynikające przede wszystkim z braku powszechnie obowiązujących, spójnych standardów zabezpieczeń.
+
+Skutki tego stanu rzeczy są wielowymiarowe:
+
+\begin{itemize}
+\item \textbf{Niski poziom interoperacyjności} – urządzenia różnych producentów często nie potrafią skutecznie współpracować, co utrudnia centralne zarządzanie zabezpieczeniami oraz implementację jednolitych mechanizmów ochronnych w całym systemie.
+
+\item \textbf{Nierówna jakość zabezpieczeń} – wiele urządzeń, szczególnie tych tańszych lub przeznaczonych do masowej produkcji, posiada bardzo ograniczone lub wręcz brakujące mechanizmy bezpieczeństwa. Często producenci skupiają się na funkcjonalności i kosztach, pomijając odpowiednie zabezpieczenia.
+
+\item \textbf{Problemy z aktualizacjami i zarządzaniem} – brak standaryzacji powoduje, że każde urządzenie może mieć inny sposób aktualizacji oprogramowania, często niedokumentowany lub utrudniony. Niektóre modele nie wspierają aktualizacji OTA (Over-The-Air), co naraża je na pozostawanie z niezałatanymi lukami bezpieczeństwa przez długi czas.
+
+\item \textbf{Wbudowane hasła fabryczne i ich brak zmiany} – wiele urządzeń IoT dostarczanych jest z domyślnymi, słabymi hasłami, które użytkownicy często ignorują lub nie zmieniają, co stwarza łatwy dostęp dla atakujących.
+
+\item \textbf{Słaba dokumentacja i brak transparentności} – brak jasnych wytycznych dotyczących zabezpieczeń powoduje, że użytkownicy nie mają pewności co do stopnia ochrony ich urządzeń, a administratorzy systemów nie dysponują narzędziami pozwalającymi na skuteczne monitorowanie i zarządzanie ryzykiem.
+\end{itemize}
+
+Efektem tych problemów jest sytuacja, w której nawet pojedyncze, słabo zabezpieczone urządzenie może stać się punktem wejścia dla cyberataków na całą infrastrukturę IoT, umożliwiając rozprzestrzenianie się zagrożeń, przejęcie kontroli nad siecią lub wyciek cennych danych.
+
+Aby przeciwdziałać tym wyzwaniom, konieczne jest dążenie do:
+
+\begin{itemize}
+\item opracowania i przyjęcia wspólnych, otwartych standardów bezpieczeństwa dla urządzeń IoT, uwzględniających minimalne wymagania dotyczące uwierzytelniania, szyfrowania, aktualizacji oprogramowania i zarządzania.
+
+\item promowania certyfikacji i audytów bezpieczeństwa urządzeń przed ich wprowadzeniem na rynek.
+
+\item edukacji użytkowników końcowych na temat konieczności zmiany domyślnych haseł oraz regularnego aktualizowania oprogramowania.
+
+\item rozwoju narzędzi centralnego zarządzania i monitoringu bezpieczeństwa, które pozwolą na skuteczne kontrolowanie rozproszonych i heterogenicznych środowisk IoT.
+\end{itemize}
+
+Tylko kompleksowe podejście i współpraca wszystkich interesariuszy – producentów, dostawców usług, użytkowników i regulatorów – pozwolą podnieść poziom bezpieczeństwa i zminimalizować ryzyko wynikające z braku standaryzacji w systemach IoT.
+
+\section{Ocena wpływu zabezpieczeń na prywatność użytkowników}
+Zabezpieczenia w systemach IoT mają na celu ochronę danych użytkowników oraz zapobieganie nieautoryzowanemu dostępowi. Jednakże ich skuteczność bezpośrednio przekłada się na poziom zachowania prywatności – zarówno w kontekście ochrony danych osobowych, jak i zapewnienia użytkownikom przejrzystości co do sposobu, w jaki ich dane są przetwarzane i przechowywane. 
+\subsection{Ochrona danych lokalizacyjnych i osobowych}
+W systemach IoT dane lokalizacyjne i osobowe należą do najbardziej wrażliwych kategorii informacji. Urządzenia takie jak trackery GPS, smartfony, inteligentne zegarki czy nawet systemy inteligentnego domu mogą zbierać i transmitować dane dotyczące: dokładnej lokalizacji użytkownika w czasie rzeczywistym, danych identyfikujących (np. imię, adres e-mail, IP), nawyków i harmonogramów dnia.
+Zabezpieczenia wpływają bezpośrednio na poziom ochrony tych danych. Stosowanie szyfrowania (np. AES, TLS), anonimizacja danych lokalizacyjnych oraz segmentacja sieci są podstawowymi metodami zabezpieczenia informacji wrażliwych. Niemniej, niewłaściwa konfiguracja systemu lub brak odpowiednich mechanizmów kontroli dostępu może prowadzić do naruszeń prywatności – np. śledzenia użytkownika bez jego wiedzy, przechwycenia danych przez osoby trzecie, a nawet ich nieautoryzowanego wykorzystania w celach komercyjnych lub przestępczych. W niektórych przypadkach ujawnienie danych lokalizacyjnych może skutkować fizycznym zagrożeniem dla użytkownika, np. poprzez umożliwienie włamania do domu w czasie jego nieobecności. Dlatego też konieczne jest nie tylko stosowanie technicznych środków ochrony, ale również jasne i przejrzyste informowanie użytkownika o tym, jakie dane są gromadzone, w jakim celu oraz w jaki sposób są zabezpieczane i przechowywane.
+
+\subsection{Polityki prywatności i przechowywanie danych}
+Polityki prywatności pełnią kluczową rolę w informowaniu użytkowników o tym, jakie dane są zbierane, w jaki sposób są wykorzystywane, komu są udostępniane oraz jak długo są przechowywane. Niestety, w wielu przypadkach:
+\begin{itemize}
+    \item Polityki prywatności są zbyt skomplikowane lub nieczytelne, co utrudnia użytkownikom zrozumienie, jakie dane są zbierane i w jaki sposób są wykorzystywane.
+    
+    \item Niektóre urządzenia IoT nie oferują użytkownikom możliwości zarządzania swoimi danymi, co prowadzi do sytuacji, w której użytkownicy nie mają kontroli nad tym, jakie informacje są gromadzone i jak są wykorzystywane.
+    
+    \item Niektóre urządzenia IoT przechowują dane w chmurze, co rodzi dodatkowe pytania dotyczące bezpieczeństwa i prywatności. Użytkownicy muszą ufać dostawcom usług chmurowych, że odpowiednio zabezpieczą ich dane i nie udostępnią ich osobom trzecim bez zgody użytkownika.
+    
+    \item Wiele urządzeń IoT nie oferuje użytkownikom możliwości usunięcia swoich danych, co może prowadzić do sytuacji, w której dane osobowe są przechowywane przez długi czas, nawet po zakończeniu korzystania z urządzenia.
+    
+    \item Niektóre urządzenia IoT mogą zbierać dane w sposób niejawny, bez zgody użytkownika, co narusza zasady ochrony prywatności. Przykładem mogą być aplikacje mobilne, które zbierają dane o lokalizacji użytkownika, nawet gdy aplikacja nie jest aktywna.
+\end{itemize}
+
+\subsection{Przypadki wycieków danych z urządzeń IoT}
+\label{subsec:mirai}
+W ostatnich latach odnotowano wiele poważnych incydentów związanych z bezpieczeństwem Internetu Rzeczy, które unaoczniły potencjalne zagrożenia wynikające z braku odpowiednich zabezpieczeń. Poniżej omówiono kilka najbardziej znaczących przypadków, które przyczyniły się do wzrostu świadomości na temat potrzeby ochrony danych w środowisku IoT:
+\begin{itemize}
+    \item \textbf{Mirai (2016)} - jedno z najsłynniejszych złośliwych oprogramowań typu malware, które zainfekowało setki tysięcy urządzeń IoT, takich jak kamery IP, routery czy rejestratory DVR. Wirus wykorzystywał domyślne, fabryczne hasła, aby uzyskać dostęp do urządzeń i przejąć nad nimi kontrolę. Zainfekowane urządzenia tworzyły botnet, który został wykorzystany do przeprowadzenia masowego ataku DDoS na serwis DNS Dyn, skutkując niedostępnością wielu znanych witryn internetowych, m.in. Twittera, Netflixa czy Reddita. Incydent ten zwrócił uwagę świata na powagę zagrożeń związanych z nieodpowiednio zabezpieczonymi urządzeniami IoT.
+    
+    \item \textbf{VTech (2015)} - hakerzy uzyskali dostęp do baz danych producenta zabawek edukacyjnych VTech, w tym urządzeń z funkcjami połączeń internetowych. Wyciekły dane osobowe ponad 6 milionów dzieci i ich rodziców, w tym imiona, daty urodzenia, adresy e-mail, hasła oraz dane dotyczące profili użytkowników. Wśród informacji znalazły się również zdjęcia i wiadomości głosowe. Atak był możliwy m.in. z powodu niezaszyfrowanych transmisji danych i braku odpowiednich zabezpieczeń serwerów firmy.
+    
+    \item \textbf{Ring (2019)} – należąca do Amazon firma Ring, produkująca inteligentne dzwonki i kamery do monitoringu, została skrytykowana po doniesieniach o nieautoryzowanym dostępie do urządzeń klientów. W niektórych przypadkach hakerzy uzyskiwali dostęp do kamer domowych, zdalnie sterowali nimi, mówili do użytkowników przez wbudowane głośniki, a nawet śledzili dzieci. Chociaż technicznie rzecz biorąc, nie doszło do bezpośredniego włamania do infrastruktury Ring, problemem okazał się brak dwuskładnikowego uwierzytelnienia (2FA) oraz wykorzystywanie przez użytkowników słabych lub powielanych haseł.
+\end{itemize}
+Te przykłady unaoczniają, że:
+\begin{itemize}
+\item Nawet urządzenia o pozornie niskim ryzyku (np. zabawki lub domowe kamery) mogą stać się bramą do poważnych naruszeń bezpieczeństwa.
+\item Brak podstawowych mechanizmów, takich jak silne uwierzytelnianie, szyfrowanie transmisji czy regularne aktualizacje oprogramowania, znacząco zwiększa podatność urządzeń na ataki.
+\item Wyciek danych osobowych, szczególnie dotyczących dzieci czy domowego życia, może prowadzić do poważnych konsekwencji etycznych, prawnych i reputacyjnych.
+\end{itemize}
+
+Zdarzenia te zmusiły wiele firm do rewizji swoich praktyk w zakresie bezpieczeństwa oraz przyczyniły się do wzrostu nacisku ze strony regulatorów na wdrażanie ścisłych zasad ochrony danych w urządzeniach konsumenckich. W konsekwencji m.in. Federalna Komisja Handlu (FTC) i inne instytucje rozpoczęły prowadzenie dochodzeń i nakładanie kar na firmy nieprzestrzegające zasad prywatności i bezpieczeństwa.
+
+\subsection{Korporacyjna góra złota - klatka dla zwykłych, szarych użytkowników}
+W ekosystemie IoT dane użytkowników stanowią nie tylko cel ochrony, ale często również towar – przedmiot obrotu komercyjnego. Wiele korporacji technologicznych zbiera dane dotyczące lokalizacji, preferencji zakupowych, aktywności fizycznej czy nawyków domowych i następnie udostępnia je (lub sprzedaje) stronom trzecim – często firmom marketingowym lub analitycznym. Nawet w przypadkach, gdy praktyki te wychodzą na jaw i kończą się karami finansowymi, wielkie firmy często traktują je jako koszt prowadzenia działalności – znacznie niższy niż zyski osiągane z handlu danymi. Przykładowo:
+\begin{itemize}
+    \item Meta w 2019 roku jako firma zapłaciła rekordową karę 5 milardów dolarów za naruszenie prywatności, w tym samym czasie jej roczny przychów przekroczył 70 milardów dolarów.
+    \item Google w 2021 został ukarany przez organy luksemburskie grzywną w wysokości 746 milionów euro za rpzetwarzanie danych w sposób niezgodny z RODO - mimo to firma wygenerowała 500 miliardów dolarów przychodu
+    \item Inne korporacje wykorzystują dane z urządzeń typu smart TV, głośników czy aplikacji fitness zarabiają miliony dolarów na profilowaniu użytkowników, co przekłada się na wzrost efektywności reklam, a tym samym - ich dochodów.
+\end{itemize}
+Tego rodzaju działania podważają zaufanie użytkowników do dostawców technologii IoT i pokazują, że aktualne regulacje – choć ważne – bywają niewystarczające, jeśli nie towarzyszą im skuteczne mechanizmy egzekucji oraz większa przejrzystość działań firm. Jako użytkownicy uzyskujemy "darmowe" usługi, których ceną jest nasza prywatność sprzedana na aukcjach.

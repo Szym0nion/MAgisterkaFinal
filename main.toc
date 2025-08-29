@@ -1,0 +1,178 @@
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\thispagestyle {empty}
+\contentsline {chapter}{\numberline {1}Wstęp}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Cel i zakres pracy}{1}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Hipotezy badawcze}{1}{subsection.1.1.1}%
+\contentsline {section}{\numberline {1.2}Motywacja do podjęcia tematu}{2}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Struktura pracy}{2}{section.1.3}%
+\contentsline {chapter}{\numberline {2}Wprowadzenie do IoT i związanych z nim zagrożeń}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Wprowadzenie do tematyki IoT}{5}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Kluczowe pojęcia związane z prywatnością i bezpieczeństwem danych w IoT}{7}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Różnorodność urządzeń IoT}{8}{section.2.3}%
+\contentsline {subsubsection}{Klasyfikacja według zasobów obliczeniowych:}{8}{section*.9}%
+\contentsline {subsubsection}{Klasyfikacja według funkcjonalności:}{9}{section*.10}%
+\contentsline {section}{\numberline {2.4}Architektury systemów IoT i ich implikacje bezpieczeństwa}{11}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Wprowadzenie do zagrożeń w systemach IoT}{14}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Zabezpieczenia w systemach IoT}{19}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Przegląd zabezpieczeń stosowanych w systemach IoT}{19}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Szyfrowanie danych}{19}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Autoryzacja i uwierzytelnianie}{20}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Zarządzanie tożsamością i integracja z systemami IAM}{21}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}Protokoły komunikacyjne i ich zabezpieczenia}{23}{subsection.3.1.4}%
+\contentsline {subsection}{\numberline {3.1.5}Dodatkowe techniki zabezpieczeń w IoT}{26}{subsection.3.1.5}%
+\contentsline {section}{\numberline {3.2}Wyzwania związane z prywatnością i bezpieczeństwem w IoT}{27}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Wyciek danych osobowych}{27}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Śledzenie aktywności użytkowników}{27}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Brak standaryzacji zabezpieczeń IoT}{28}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Ocena wpływu zabezpieczeń na prywatność użytkowników}{30}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Ochrona danych lokalizacyjnych i osobowych}{30}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Polityki prywatności i przechowywanie danych}{30}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Przypadki wycieków danych z urządzeń IoT}{31}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Korporacyjna góra złota - klatka dla zwykłych, szarych użytkowników}{32}{subsection.3.3.4}%
+\contentsline {chapter}{\numberline {4}Projekt środowiska testowego dla systemów IoT}{35}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Opracowanie kontrolowanego środowiska do testowania zabezpieczeń w IoT}{35}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Wybór urządzeń, platform i protokołów IoT do testowania}{35}{subsection.4.1.1}%
+\contentsline {subsubsection}{Urządzenia IoT:}{35}{section*.18}%
+\contentsline {subsubsection}{Urządzenie atakującego}{36}{section*.19}%
+\contentsline {subsubsection}{Narzędzia atakującego}{37}{section*.20}%
+\contentsline {subsubsection}{Serwery i infrastruktura monitorująca}{37}{section*.21}%
+\contentsline {subsubsection}{Komunikacja między urządzeniami IoT a MQTT Brokerem}{38}{section*.22}%
+\contentsline {section}{\numberline {4.2}Przygotowanie scenariuszy testowych}{39}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Atak typu Man-in-the-Middle (MITM)}{39}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Przechwytywanie i analiza danych}{39}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Próby nieautoryzowanego dostępu}{39}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Ataki DoS i DDoS}{39}{subsection.4.2.4}%
+\contentsline {chapter}{\numberline {5}Testowanie zabezpieczeń IoT}{41}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Przeprowadzenie testów zabezpieczeń w środowisku testowym}{41}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Metodologia testów zabezpieczeń w środowisku testowym}{41}{subsection.5.1.1}%
+\contentsline {subsubsection}{ARP Spoofing przy użyciu Bettercap}{41}{section*.23}%
+\contentsline {subsubsection}{Sniffing ruchu sieciowego}{42}{section*.25}%
+\contentsline {subsubsection}{Brute-force haseł}{42}{section*.26}%
+\contentsline {subsubsection}{Ataki DDoS}{43}{section*.27}%
+\contentsline {subsection}{\numberline {5.1.2}Narzędzia wykorzystywane do testowania}{44}{subsection.5.1.2}%
+\contentsline {subsubsection}{ARP Spoofing przy użyciu Bettercap}{44}{section*.29}%
+\contentsline {subsubsection}{Sniffing ruchu sieciowego}{44}{section*.30}%
+\contentsline {subsubsection}{Brute-force haseł}{45}{section*.31}%
+\contentsline {subsubsection}{Ataki DDoS}{45}{section*.32}%
+\contentsline {section}{\numberline {5.2}Ocena skuteczności zabezpieczeń IoT}{45}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Odporność na próby ataków}{45}{subsection.5.2.1}%
+\contentsline {subsubsection}{ARP Spoofing przy użyciu Bettercap}{45}{section*.33}%
+\contentsline {subsubsection}{Sniffing ruchu sieciowego}{48}{section*.35}%
+\contentsline {subsubsection}{Brute-force haseł}{50}{section*.40}%
+\contentsline {subsubsection}{Ataki DDoS}{53}{section*.43}%
+\contentsline {section}{\numberline {5.3}Podsumowanie testów zabezpieczeń}{55}{section.5.3}%
+\contentsline {chapter}{\numberline {6}Zgodność zabezpieczeń IoT z regulacjami dotyczącymi prywatności}{57}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Ocena zgodności zabezpieczeń z regulacjami dotyczącymi prywatności}{57}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Przegląd regulacji prawnych (RODO, HIPAA, itd.)}{57}{subsection.6.1.1}%
+\contentsline {subsubsection}{Ogólne Rozporządzenie o Ochronie Danych (RODO/GDPR)}{57}{section*.47}%
+\contentsline {subsubsection}{Ustawa HIPAA (Health Insurance Portability and Accountability Act)}{59}{section*.48}%
+\contentsline {subsubsection}{Inne regulacje dotyczące prywatności}{60}{section*.49}%
+\contentsline {subsection}{\numberline {6.1.2}Wymogi dotyczące ochrony danych osobowych w systemach IoT}{61}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Analiza zgodności zabezpieczeń w kontekście prawa}{61}{subsection.6.1.3}%
+\contentsline {section}{\numberline {6.2}Podsumowanie i wnioski cząstkowe}{62}{section.6.2}%
+\contentsline {chapter}{\numberline {7}Optymalizacja mechanizmów zabezpieczeń w IoT}{65}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Optymalizacja zabezpieczeń w IoT}{65}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Optymalizacja algorytmów szyfrowania i uwierzytelniania}{65}{subsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.1.2}Zastosowanie lekkich algorytmów szyfrowania w IoT}{67}{subsection.7.1.2}%
+\contentsline {subsection}{\numberline {7.1.3}Równoważenie prywatności, bezpieczeństwa i efektywności w systemach IoT}{68}{subsection.7.1.3}%
+\contentsline {subsection}{\numberline {7.1.4}Optymalizacja w kontekście przeprowadzonych badań}{69}{subsection.7.1.4}%
+\contentsline {section}{\numberline {7.2}Propozycje nowych podejść do ochrony prywatności i bezpieczeństwa w IoT}{69}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Sztuczna inteligencja do dynamicznego zarządzania zabezpieczeniami}{69}{subsection.7.2.1}%
+\contentsline {section}{\numberline {7.3}Nowe standardy ochrony prywatności w systemach IoT}{70}{section.7.3}%
+\contentsline {chapter}{\numberline {8}Wnioski i rekomendacje}{71}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Podsumowanie wyników badań nad bezpieczeństwem i prywatnością w IoT}{71}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Napotkane problemy i ograniczenia}{73}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Propozycje przyszłych badań}{74}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Podsumowanie}{75}{section.8.4}%
+\contentsline {chapter}{Bibliografia}{77}{chapter*.53}%
+\contentsline {chapter}{Podziękowania}{83}{appendix*.54}%
+\contentsline {chapter}{Spis skrótów i symboli}{85}{appendix*.55}%
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\contentsline {chapter}{Lista użytych programów}{87}{appendix*.56}%
+\contentsline {chapter}{Spis rysunków}{89}{appendix*.57}%
+\contentsline {chapter}{Spis tabel}{91}{appendix*.58}%

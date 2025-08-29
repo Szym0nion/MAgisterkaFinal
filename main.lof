@@ -1,0 +1,112 @@
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Trzy główne elementy IoT}}{6}{figure.caption.8}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Przykładowy sensor, aktuator i urządzenie hybrydowe}}{11}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Ogólna architektura IoT}}{11}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Schemat ataku typu Man-in-the-Middle (MITM) w systemach IoT}}{16}{figure.caption.14}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Wyświetlenie listy urządzeń, przy użyciu Bettercap}}{42}{figure.caption.24}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Przechwycone pakiety z programu Wireshark podczas ataku GoldenEye}}{44}{figure.caption.28}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Porównanie tablicy ARP na urządzeniu Raspberry Pi, przed i po ataku}}{46}{figure.caption.34}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Pakiety w programie Wireshark przechwycone z urządzenia Xiaomi}}{48}{figure.caption.36}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Pakiety w programie Wireshark przechwycone z urządzenia Raspberry Pi}}{49}{figure.caption.37}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Wykresy monitorujące Raspberry Pi w trakcie wdrażania TLS, przy pomocy Grafany}}{50}{figure.caption.38}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Porównanie próby złamania hasła na Raspberry Pi, przy użyciu narzędzia Hydra przed i po zabezpieczeniu}}{51}{figure.caption.41}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Wykresy monitorujące Raspberry Pi w trakcie ataku Brute Force, przy pomocy Grafany}}{52}{figure.caption.42}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Wykresy monitorujące broker MQTT w trakcie ataku DDoS, przy pomocy Grafany}}{54}{figure.caption.44}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Wykresy monitorujące broker MQTT w trakcie ataku DDoS na różne protokoły, przy pomocy Grafany}}{54}{figure.caption.45}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\addvspace {10\p@ }

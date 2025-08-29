@@ -1,0 +1,116 @@
+\chapter{Optymalizacja mechanizmów zabezpieczeń w IoT}
+\label{chap:rozdzial7}
+\section{Optymalizacja zabezpieczeń w IoT}
+Optymalizacja zabezpieczeń w IoT wymaga zrównoważenia wielu czynników, takich jak moc obliczeniowa urządzeń, zużycie energii, opóźnienia komunikacyjne oraz poziom bezpieczeństwa. W tym rozdziale omówione zostaną kluczowe aspekty optymalizacji, w tym usprawnienie algorytmów szyfrowania i uwierzytelniania, zastosowanie lekkich metod kryptograficznych oraz znalezienie kompromisu między prywatnością, bezpieczeństwem a wydajnością systemów IoT.
+\subsection{Optymalizacja algorytmów szyfrowania i uwierzytelniania}
+Algorytmy kryptograficzne stosowane w IoT muszą spełniać dwa kluczowe wymagania: wysoki poziom bezpieczeństwa (odporność na ataki) oraz efektywność obliczeniową (niskie zużycie energii i mocy procesora). Tradycyjne metody szyfrowania, takie jak AES (Advanced Encryption Standard), choć uznawane za bezpieczne, mogą być zbyt zasobożerne dla urządzeń IoT o ograniczonej mocy obliczeniowej i pamięci (np. czujniki, mikrokontrolery). Dlatego istotne jest odpowiednie dostosowanie implementacji kryptograficznych lub zastosowanie specjalizowanych, lżejszych alternatyw.
+
+\textbf{1. Dobór odpowiednich parametrów szyfrowania} \\
+Wybór parametrów kryptograficznych ma kluczowe znaczenie dla wydajności systemu IoT. W niektórych przypadkach można zastosować mniej wymagające warianty standardowych algorytmów, jeśli nie wpływa to znacząco na bezpieczeństwo. Przykłady optymalizacji:
+\begin{itemize}
+    \item \textbf{Skrócenie długości klucza} - np. użycie AES-128 zamiast AES-256 w przypadku danych o niższej wrażliwości, co zmniejsza obciążenie procesora przy zachowaniu akceptowalnego poziomu bezpieczeństwa.
+    \item \textbf{Wybór trybu szyfrowania} - niektóre tryby pracy AES (np. CTR lub GCM) są bardziej wydajne niż inne (np. CBC), ponieważ umożliwiają równoległe przetwarzanie danych.
+    \item \textbf{Dynamiczna adaptacja zabezpieczeń} - system może automatycznie dostosowywać siłę szyfrowania w zależności od kontekstu (np. słabsze szyfrowanie dla danych telemetrycznych, silniejsze dla poufnych poleceń sterujących).
+\end{itemize}
+
+\textbf{2. Wykorzystanie hybrydowych metod kryptograficznych} \\
+Ponieważ szyfrowanie asymetryczne (np. RSA, ECC) jest znacznie bardziej obliczeniowo kosztowne niż szyfrowanie symetryczne (np. AES), w IoT często stosuje się rozwiązania hybrydowe:
+\begin{itemize}
+    \item \textbf{Wymiana kluczy przy użyciu kryptografii asymetrycznej}, a następnie szyfrowanie danych za pomocą algorytmów symetrycznych (np. protokół ECDH + AES).
+    \item \textbf{Uproszczone schematy certyfikatów} - zamiast pełnych certyfikatów X.509, które są duże i wymagają intensywnej walidacji, można stosować lekkie mechanizmy uwierzytelniania, takie jak pre-shared keys (PSK) lub certyfikaty typu CBOR Web Tokens (CWT).
+    \item \textbf{Protokoły z minimalnym narzutem komunikacyjnym} - np. MQTT z TLS 1.3 (wspierający 0-RTT handshake) zamiast standardowego HTTPS, co zmniejsza opóźnienia i zużycie pasma.
+\end{itemize}
+
+\textbf{3. Implementacja efektywnych protokołów uwierzytelniania} \\
+Uwierzytelnianie w IoT musi być zarówno bezpieczne, jak i szybkie, aby nie przeciążać urządzeń. Wśród optymalnych rozwiązań znajdują się:
+\begin{itemize}
+    \item \textbf{DTLS (Datagram Transport Layer Security)} - wersja TLS dostosowana do protokołów UDP (np. w komunikacji z użyciem CoAP), oferująca szyfrowanie i uwierzytelnianie przy mniejszym narzucie niż tradycyjny TLS/TCP.
+    \item \textbf{Lightweight OAuth 2.0} - uproszczone warianty OAuth, takie jak Device Flow lub JWT Profile, które redukują liczbę interakcji wymaganych do autoryzacji.
+    \item \textbf{Protokoły oparte na tożsamości (Identity-Based Encryption, IBE)} - eliminują konieczność przechowywania certyfikatów, co jest korzystne dla urządzeń o małej pamięci.
+\end{itemize}
+
+Optymalizacja algorytmów szyfrowania i uwierzytelniania w IoT wymaga zrównoważenia bezpieczeństwa, wydajności i zużycia energii. Kluczowe strategie obejmują: \textbf{Dostosowanie parametrów kryptograficznych} do możliwości urządzeń, \textbf{Stosowanie hybrydowych metod szyfrowania}, łączących zalety kryptografii symetrycznej i asymetrycznej oraz \textbf{Wdrożenie lekkich protokołów uwierzytelniania}, minimalizujących narzut obliczeniowy i komunikacyjny. 
+Dalsze badania w tym obszarze powinny koncentrować się na automatycznej adaptacji poziomu zabezpieczeń w zależności od zagrożeń oraz na rozwoju znormalizowanych lekkich algorytmów kryptograficznych (np. w ramach projektu NIST Lightweight Cryptography).
+
+\subsection{Zastosowanie lekkich algorytmów szyfrowania w IoT}
+W systemach Internetu Rzeczy (IoT), gdzie urządzenia często charakteryzują się ograniczoną mocą obliczeniową, małą pamięcią RAM/Flash oraz niskim poborem energii, tradycyjne algorytmy kryptograficzne (np. AES-256, RSA-2048) mogą być niepraktyczne. Dlatego stosuje się lekkie algorytmy kryptograficzne (Lightweight Cryptography, LWC), zaprojektowane specjalnie dla urządzeń embedded.
+
+Poniżej przedstawiono najważniejsze lekkie algorytmy szyfrowania, ich zalety oraz zastosowania w IoT:
+\begin{enumerate}
+    \item \textbf{Algorytm ChaCha20} - Algorytm szyfrowania strumieniowego (działa na pojedynczych bitach/bajtach, a nie na blokach). Jest 3 razy szybszy niż AES w implementacjach programowych. Jego największymi zaletami jest mniejszy narzut pamięciowy niż w przypadku AES (256 bajtów RAM) oraz duża odporność na ataki czasowe (brak operacji zależnych od danych). Stosowany jest w komunikacji DTLS (np. w CoAP) oraz zabezpieczeniach danych w urządzeeniach ESP32/STM32.
+    \item \textbf{Algorytmy ECC (krzywe eliptyczne)} - Algorytmy kryptograficzne oparte na krzywych eliptycznych, które oferują wysoki poziom bezpieczeństwa przy krótszych kluczach niż RSA. Na przykład, klucz ECC 256-bitowy zapewnia podobny poziom bezpieczeństwa jak klucz RSA 3072-bitowy. Dzięki temu ECC jest bardziej efektywne pod względem pamięci i mocy obliczeniowej. Stosowane są w protokołach TLS, ECDH (wymiana kluczy) oraz ECDSA (podpisy cyfrowe).
+    \item \textbf{PRESENT, SPECK/Simon} - Lekkie algorytmy blokowe, które charakteryzują się małym rozmiarem kodu i niskim zużyciem energii. PRESENT jest algorytmem o długości bloku 64 bity i klucza 80/128 bitów, a SPECK/Simon to rodzina algorytmów o różnych długościach bloku (np. 32, 48, 64 bity) i klucza (np. 64, 96, 128 bitów). Stosowane są w systemach RFID, czujnikach oraz urządzeniach o ograniczonej mocy obliczeniowej.
+    \item \textbf{Inne lekkie algorytmy (wybrane)} - Poza wyżej opisanymi, istnieje szeroka gama innych wyspecjalizowanych algorytmów lekkich, zaprojektowanych do konkretnych zastosowań w IoT, takich jak uwierzytelnianie wiadomości (MAC) czy szyfrowanie strumieniowe dla urządzeń o skrajnie ograniczonych zasobach. Dla celów porównawczych, kluczowe cechy wybranych algorytmów zestawiono w Tabeli \ref{tab:algorytmy}.
+        \begin{table}[h]
+        \caption{Porównanie lekkich algorytmów kryptograficznych w IoT}
+        \label{tab:algorytmy}
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \textbf{Algorytm} & \textbf{Typ} & \textbf{Zalety} & \textbf{Zastosowanie} \\ \hline
+            Chaskey & MAC & Bardzo lekki (128-bit) & Autentykacja węzłów IoT \\ \hline
+            Trivium & Stream cipher & Niskie zużycie energii & RFID, czujniki \\ \hline
+            Grain-128 & Stream cipher & Odporny na ataki side-channel & Automotive IoT \\ \hline
+            \label{tab:algorytmy}
+        \end{tabular}
+    \end{table}
+\end{enumerate}
+
+\subsection{Równoważenie prywatności, bezpieczeństwa i efektywności w systemach IoT}
+Wdrożenie skutecznych mechanizmów zabezpieczających w Internecie Rzeczy (IoT) wymaga zrównoważenia trzech kluczowych aspektów:
+\begin{enumerate}
+    \item \textbf{Prywatności użytkowników} - ochrony danych osobowych i wrażliwych informacji.
+    \item \textbf{Bezpieczeństwa systemu} - odporności na ataki cybernetyczne.
+    \item \textbf{Efektywności urządzeń} - minimalizacji zużycia energii, mocy obliczeniowej i pasma sieciowego.
+\end{enumerate}
+Nadmierne skupienie się na jednym z tych elementów może prowadzić do:
+\textbf{Degradacji wydajności} (np. przez zastosowanie zbyt złożonych algorytmów kryptograficznych), \textbf{naruszenia prywatności} (gdy dane są przetwarzane bez odpowiedniej anonimizacji), \textbf{obniżenia bezpieczeństwa} (jeśli optymalizacja pod kątem wydajności pomija kluczowe zagrożenia).
+Aby osiągnąć równowagę między tymi trzema aspektami, można zastosować następujące podejścia: 
+\begin{itemize}
+    \item \textbf{Anonimizacja i pseudonimizacja danych} - zastępowanie danych identyfikujących (np. numerów PESEL) unikalnymi tokenami (np. losowymi ciągami znaków). \textit{Przykład}: W systemie monitoringu zdrowia dane pacjenta są zastępowane identyfikatorem „ID-1XX9”, co uniemożliwia powiązanie pomiarów z konkretną osobą. Proces ten zmniejsza ryzyko naruszenia prywatności i spełnia wymogi prawne (np. RODO).
+    \item \textbf{Adaptacyjne mechanizmy bezpieczeństwa} - systemy mogą dynamicznie dostosowywać poziom zabezpieczeń w zależności od kontekstu (np. lokalizacji, rodzaju danych). \textit{Przykład}: W inteligentnym domu, gdy użytkownik jest w pobliżu, system może stosować silniejsze szyfrowanie i uwierzytelnianie, a gdy jest poza domem, przełącza się na lżejsze algorytmy.
+    \item \textbf{Monitorowanie i analiza ruchu sieciowego} - stosowanie algorytmów uczenia maszynowego do analizy wzorców ruchu sieciowego w celu wykrywania anomalii i potencjalnych zagrożeń. \textit{Przykład}: W systemie monitorowania ruchu drogowego, algorytmy mogą analizować dane z czujników i wykrywać nieprawidłowości (np. nagłe zmiany prędkości pojazdów), co pozwala na szybką reakcję na incydenty.
+\end{itemize}
+
+\subsection{Optymalizacja w kontekście przeprowadzonych badań}
+
+\section{Propozycje nowych podejść do ochrony prywatności i bezpieczeństwa w IoT}
+Wraz z rozwojem technologii IoT tradycyjne metody zabezpieczeń stają się niewystarczające wobec nowych rodzajów zagrożeń. W niniejszym rozdziale przedstawiono innowacyjne podejścia łączące najnowsze osiągnięcia w dziedzinie sztucznej inteligencji, uczenia federacyjnego oraz zaawansowanych standardów prywatności, które mogą zrewolucjonizować ochronę danych w systemach rozproszonych.
+\subsection{Sztuczna inteligencja do dynamicznego zarządzania zabezpieczeniami}
+Statyczne systemy bezpieczeństwa są często nieskuteczne wobec adaptacyjnych cyberataków. Rozwiązaniem jest AI-Driven Security, czyli systemy, które samodzielnie uczą się wzorców zagrożeń i dostosowują mechanizmy obronne w czasie rzeczywistym. \\
+\textbf{Kluczowe innowacje:}
+\begin{itemize}
+    \item \textbf{Predykcyjne wykrywanie ataków} - Algorytmy ML (np. LSTM, Transformers) analizują ruch sieciowy, przewidując ataki z wyprzedzeniem. \textit{Przykład}: System wykrywa anomalie w pakietach MQTT, zanim nastąpi eksfiltracja danych.
+    \item \textbf{Automatyczna adaptacja polityk bezpieczeństwa} - SI dynamicznie wybiera algorytmy szyfrujące (np. przełączanie AES-256 na ChaCha20 w zależności od obciążenia sieci).
+    \item \textbf{Federated Learning dla ochrony prywatności} - Modele AI są trenowane lokalnie na urządzeniach brzegowych (edge), bez przesyłania surowych danych do chmury.
+\end{itemize}
+\textbf{Stadium przypadku:} \\
+W inteligentnym szpitalu system oparty na AI Honeycomb (patent Cisco 2023) redukuje fałszywe alarmy o 70\%, jednocześnie wykrywając 98\% ataków na urządzenia medyczne IoT. Wyzwania z jakimi projekt taki zmaga się na codzień to: zużycie energii przez modele AI na urządzeniach brzegowych oraz ryzyko manipulacji danych treningowych.
+
+\section{Nowe standardy ochrony prywatności w systemach IoT}
+Obecne standardy (np. GDPR) są zbyt ogólne dla specyfiki IoT, gdzie dane są rozproszone i często przetwarzane w czasie rzeczywistym.
+
+\textbf{1. Privacy by Design dla IoT (wg ISO/IEC 27570:2024)} \\
+\begin{itemize}
+    \item \textbf{Minimalizacja danych} - Zbieranie wyłącznie danych niezbędnych do funkcjonowania systemu (np. czujnik temperatury w smart home nie gromadzi informacji o lokalizacji). \textit{Przykład}: W inteligentnych licznikach energii (smart meters) rejestrowane jest tylko zużycie prądu, a nie identyfikator urządzenia.
+    \item \textbf{Domniemana anonimizacja} - Automatyczne usuwanie/tokenizacja identyfikatorów (MAC, IMEI) z danych przed przetwarzaniem.
+\end{itemize}
+
+\textbf{2. Dynamic Consent Management} \\
+\begin{itemize}
+    \item \textbf{Smart kontrakty na blockchainie} - Użytkownik definiuje reguły dostępu (np. "Dane medyczne mogą być udostępnione szpitalowi tylko gdy tętno > 120 BPM").
+    \item \textbf{Tymczasowe tokenu dostępu} - Generowane jednorazowe klucze (np. JWT z krótkim czasem życia) dla dostawców usług.
+\end{itemize}
+
+\textbf{3. Standard "Zero-Trust Privacy"} \\
+\begin{itemize}
+    \item \textbf{Ciągła weryfikacja} - każdego żądania dostępu (nawet od zaufanych urządzeń w sieci LAN).
+    \item \textbf{Dowody kryptograficzne dla operacji} - Algorytm BBS+ Signatures potwierdza uprawnienia bez ujawniania tożsamości. \textit{Przykład}: Czujnik przemysłowy musi przedstawić podpis cyfrowy dla każdego zapytania SQL do bazy danych.
+    \item \textbf{Mikrosegmentacja sieci} - izolacja każdego urządzenia IoT.
+    \item \textbf{Policy Enforcement Point (PEP)} - bramka weryfikująca każdą transakcję.
+    \item \textbf{Logi w blockchain} - nieusuwalna rejestracja zdarzeń.
+\end{itemize}
+
+
+
+
+

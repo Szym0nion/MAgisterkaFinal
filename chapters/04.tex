@@ -1,0 +1,130 @@
+\chapter{Projekt środowiska testowego dla systemów IoT}
+\label{chap:rozdzial4}
+\section{Opracowanie kontrolowanego środowiska do testowania zabezpieczeń w IoT}
+W celu przeprowadzenia kompleksowych badań wpływu zabezpieczeń na prywatność i bezpieczeństwo w systemach IoT, zaprojektowano specjalne środowisko testowe. Składa się ono z fizycznych i wirtualnych komponentów, umożliwiających symulację rzeczywistych ataków oraz monitorowanie skutków ich działania.
+\subsection{Wybór urządzeń, platform i protokołów IoT do testowania}
+\subsubsection{Urządzenia IoT:}
+\begin{itemize}
+\item \textbf{Raspberry Pi 4 Model B} – minikomputer wykorzystywany jako urządzenie brzegowe IoT, umożliwiający uruchamianie systemu operacyjnego oraz aplikacji analitycznych:
+\begin{itemize}
+\item \textbf{Procesor:} 64-bitowy, czterordzeniowy ARM Cortex-A72 (1.5 GHz).
+\item \textbf{Pamięć RAM:} 4 GB.
+\item \textbf{Łączność:} Wi-Fi 802.11ac, Bluetooth 5.0, Ethernet Gigabit.
+\item \textbf{Porty:} 2x USB 3.0, 2x USB 2.0, 2x micro-HDMI, GPIO.
+\item \textbf{System operacyjny:} Raspberry Pi OS.
+\item \textbf{Zastosowanie w projekcie:} Raspberry Pi zbiera dane o temperaturze zmiennego otoczenia, monitoruje metryki systemowe (CPU, RAM, I/O, ruch sieciowy) dzięki narzędziu \textbf{Node Exporter}, a następnie przesyła te dane do \textbf{Prometheusa}. Wykresy i alerty są wizualizowane za pomocą \textbf{Grafany}, co pozwala na analizę działania urządzenia i otoczenia w czasie rzeczywistym.
+\end{itemize}
+\item \textbf{Xiaomi Smart Pet Fountain} – inteligentne urządzenie IoT przeznaczone do automatycznego podawania wody zwierzętom domowym, wyposażone w czujniki i funkcje zdalnego sterowania:
+\begin{itemize}
+    \item \textbf{Czujniki:} poziomu wody, przypomnienia o czyszczeniu, monitorowania pracy pompy.
+    \item \textbf{Łączność:} Wi-Fi 2.4 GHz (IEEE 802.11 b/g/n).
+    \item \textbf{Zarządzanie:} aplikacja mobilna Xiaomi Home (Mi Home) – użytkownik może zdalnie kontrolować pracę urządzenia, włączać/wyłączać tryby, sprawdzać zużycie wody czy planować harmonogramy.
+    \item \textbf{Zasilanie:} przez zewnętrzny adapter zasilający (typowe napięcie 5V w zależności od wersji).
+    \item \textbf{Bezpieczeństwo:} transmisja danych odbywa się poprzez szyfrowane połączenie z aplikacją, jednak urządzenia tej klasy zwykle nie umożliwiają instalacji własnych certyfikatów SSL ani integracji z zewnętrznymi systemami monitorowania.
+    \item \textbf{Funkcje dodatkowe:} automatyczne wykrywanie niskiego poziomu wody, przypomnienia o wymianie filtra i czyszczeniu urządzenia.
+\end{itemize}
+\end{itemize}
+\subsubsection{Urządzenie atakującego}
+
+\textbf{Laptop z systemem Kali Linux} – jako platformę do przeprowadzania testów penetracyjnych i symulacji ataków wykorzystano laptop MSI Cyborg 15 A12VE-017XPL. Dzięki swojej wydajności i kompatybilności z narzędziami bezpieczeństwa sieciowego, stanowi on użyteczne narzędzie do testowania zabezpieczeń środowisk IoT.
+
+\begin{itemize}
+\item \textbf{Procesor:} Intel Core i5-12450H (8 rdzeni, 12 wątków)
+
+\item \textbf{Pamięć RAM:} 16 GB DDR5
+
+\item \textbf{Dysk:} SSD NVMe 512 GB
+
+\item \textbf{System operacyjny:} Kali Linux – dystrybucja oparta na Debianie, specjalnie zaprojektowana do testów bezpieczeństwa
+
+\item \textbf{Karta sieciowa:} kompatybilna z \textbf{trybem monitorowania} i \textbf{packet injection}
+\end{itemize}
+
+Urządzenie to zostało wykorzystane w zamkniętym środowisku testowym wyłącznie do celów edukacyjnych i badawczych, zgodnie z zasadami etycznego hakowania.
+
+\vspace{5mm}
+
+\subsubsection{Narzędzia atakującego}
+
+Do przeprowadzania analizy bezpieczeństwa zostały wykorzystane poniższe narzędzia:
+
+\begin{itemize}
+\item \textbf{Metasploit Framework} – wszechstronna platforma do testów penetracyjnych, zawierająca setki exploitów i payloadów umożliwiających przeprowadzenie symulowanych ataków na podatne usługi. W środowiskach IoT może być zastosowana np. do wykorzystania luk w interfejsach webowych urządzeń lub słabo zabezpieczonych usługach zdalnych.
+
+\item \textbf{Bettercap} – narzędzie typu MITM (Man-in-the-Middle), które umożliwia przechwytywanie i modyfikację ruchu sieciowego w czasie rzeczywistym. Sprawdza się przy sniffowaniu protokołów IoT (np. MQTT, HTTP), spoofingu DNS, przejęciu sesji oraz inżynierii społecznej (np. podszywanie się pod bramkę IoT).
+
+\item \textbf{Nmap} – zaawansowany skaner portów i usług. W kontekście IoT służy do identyfikacji aktywnych urządzeń, rozpoznawania systemów operacyjnych, wykrywania usług komunikacyjnych (np. MQTT, CoAP, HTTP, SSH) oraz przygotowania mapy topologii sieciowej.
+
+\item \textbf{Hydra} – narzędzie do ataków siłowych (brute-force), wspierające wiele protokołów (SSH, FTP, Telnet, MQTT, HTTP, itp.). Może zostać użyte do testowania odporności na ataki słownikowe np. wobec bramek MQTT o słabych danych logowania.
+
+\item \textbf{Hping3} – narzędzie generujące niestandardowe pakiety TCP/IP, umożliwiające testowanie zapór sieciowych, wykrywanie hostów ukrytych za NAT-em oraz symulowanie ataków DoS/DDoS. W środowisku IoT może posłużyć do sprawdzania odporności urządzeń na nadmiarowe zapytania sieciowe lub analizy opóźnień i filtrów pakietów.
+\end{itemize}
+\subsubsection{Serwery i infrastruktura monitorująca}
+W celu zapewnienia kontrolowanego i elastycznego środowiska testowego zostało wykorzystane oprogramowanie do wirtualizacji — Oracle VirtualBox. Dzięki niemu możliwe było stworzenie odizolowanego, wieloelementowego ekosystemu, który symuluje infrastrukturę IoT wraz z systemami analityczno-monitorującymi. Zostały stworzone trzy dedykowane maszyny wirtualne, każda realizująca osobne zadania:
+
+\begin{itemize}
+\item \textbf{Serwer Mosquitto MQTT Broker} -
+Maszyna wirtualna z systemem Linux (np. Ubuntu Server), na której został zainstalowany i skonfigurowany otwartoźródłowy broker wiadomości – \textbf{Eclipse Mosquitto}.
+\begin{itemize}
+\item Obsługuje komunikację w modelu \textit{publish/subscribe} pomiędzy urządzeniem IoT (Raspberry Pi) a innymi komponentami systemu.
+\item Umożliwia testowanie mechanizmów obronnych min szyfrowanie transmisji (TLS).
+\item W konfiguracji może wykorzystywać certyfikaty i hasła użytkowników.
+\end{itemize}
+\item \textbf{Maszyna z Wiresharkiem (Sniffer sieciowy)} -
+Dedykowany host z graficznym systemem (np. Ubuntu Desktop), na którym zostało zainstalowane narzędzie \textbf{Wireshark} – służące do przechwytywania i analizowania ruchu sieciowego w czasie rzeczywistym.
+\begin{itemize}
+    \item Umożliwia monitorowanie pakietów MQTT, TCP/IP, TLS/SSL, HTTP i innych protokołów typowych dla ekosystemu IoT.
+    \item Jest pomocne w analizie prób ataków typu MITM, weryfikacji poprawności transmisji danych oraz identyfikacji potencjalnych podatności w ruchu sieciowym.
+    \item Host musi być podłączony do tej samej sieci wirtualnej co pozostałe maszyny (tryb „Internal Network” lub „Bridged Adapter”).
+\end{itemize}
+
+\item \textbf{Serwer monitorujący z Prometheusem i Grafaną} -
+Kolejna maszyna wirtualna z systemem Linux, służąca jako centrum zbierania, przechowywania i wizualizacji metryk z urządzeń IoT.
+\begin{itemize}
+    \item \textbf{Prometheus} zbiera dane z \textbf{Node Exportera} działającego na Raspberry Pi – są to metryki takie jak użycie procesora, pamięci, obciążenie systemu, zużycie dysk i stan sieci.
+    \item \textbf{Grafana} zapewnia graficzny interfejs do wizualizacji danych w czasie rzeczywistym – istnieje możliwość tworzenia niestandardowych dashboardów, alarmów oraz wykresów.
+    \item Serwer może również monitorować metryki z brokera MQTT (przy użyciu exporterów dla Mosquitto).
+\end{itemize}
+\end{itemize}
+
+\subsubsection{Komunikacja między urządzeniami IoT a MQTT Brokerem}
+W zbudowanym środowisku testowym zachodzi ciągła wymiana danych pomiędzy urządzeniem IoT (Raspberry Pi), serwerem pośredniczącym (MQTT Broker), a systemami monitorującymi.
+\textbf{Zachodząca wymiana danych:}
+\begin{itemize}
+    \item Raspberry Pi publikuje wiadomość na temat iot/data z wartością temperatury, podanej w stopniach Celsjusza z częstotliwością 5 sekund.
+    \item Broker MQTT przekazuje tę wiadomość do subskrybentów (np. Prometheus, Grafana).
+    \item Dane są przechwytywane przez Wireshark w celu analizy bezpieczeństwa (np. czy są szyfrowane).
+\end{itemize}
+
+\section{Przygotowanie scenariuszy testowych}
+W celu kompleksowej oceny wpływu zabezpieczeń na prywatność i bezpieczeństwo w systemach IoT został opracowany szereg scenariuszy testowych. Obejmują one symulację różnych rodzajów ataków, które mogą wystąpić w rzeczywistym środowisku IoT.
+
+\subsection{Atak typu Man-in-the-Middle (MITM)}
+\textbf{Cel: } Przechwycenie i modyfikacja komunikacji między urządzeniami IoT a serwerem.
+\textbf{Scenariusze:}
+\begin{itemize}
+    \item \textbf{ARP Spoofing przy użyciu Bettercap} - Atakujący (Kali Linux) wysyła fałszywe pakiety ARP, przekierowując ruch z urządzenia IoT przez swój komputer.
+\end{itemize}
+\subsection{Przechwytywanie i analiza danych}
+\textbf{Cel: } Ocena skuteczności mechanizmów ochrony danych.
+\textbf{Scenariusze:}
+\begin{itemize}
+    \item \textbf{Sniffing ruchu sieciowego} - Kompleksowa analiza pakietów przy użyciu Wiresharka, Identyfikacja potencjalnych wycieków wrażliwych danych, Weryfikacja stosowania szyfrowania w różnych warstwach komunikacji.
+\end{itemize}
+\subsection{Próby nieautoryzowanego dostępu}
+\textbf{Cel: } Sprawdzenie, czy urządzenia IoT są odporne na próby logowania z użyciem słabych lub domyślnych poświadczeń.
+\textbf{Scenariusze:}
+\begin{itemize}
+    \item \textbf{Brute-force haseł} - Atakujący próbuje złamać hasło do usługi SSH Raspberry Pi oraz brokera Mosquitto, używając słownika popularnych haseł. Następuje sprawdzenie, czy broker blokuje próby po kilku nieudanych logowaniach.
+\end{itemize}
+\subsection{Ataki DoS i DDoS}
+\textbf{Cel: } Sprawdzenie odporności systemu na ataki DoS i DDoS.
+\textbf{Scenariusze:}
+\begin{itemize}
+    \item \textbf{MQTT Flood} - Atakujący wysyła dużą liczbę wiadomości MQTT do brokera, aby zablokować jego zasoby.
+    \item \textbf{TCP SYN Flood} - Atakujący wysyła dużą liczbę pakietów SYN do serwera, aby zablokować jego zasoby.
+    \item \textbf{Atak na inne popularne protokoły IoT} - Atakujący wysyła dużą liczbę pakietów do urządzenia IoT, aby zablokować jego zasoby.
+    \item \textbf{HTTP Flood} - Atakujący wysyła dużą liczbę żądań HTTP do serwera, aby zablokować jego zasoby.
+\end{itemize}
+
+Przedstawione scenariusze testowe umożliwiają kompleksową ocenę zabezpieczeń systemów IoT pod kątem różnych kategorii zagrożeń. Zebrane dane posłużą do analizy skuteczności stosowanych mechanizmów ochrony oraz ich wpływu na funkcjonalność systemu. Każdy scenariusz został zaprojektowany tak, aby odzwierciedlać rzeczywiste zagrożenia, z jakimi mogą się spotkać użytkownicy systemów IoT.

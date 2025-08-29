@@ -1,0 +1,104 @@
+\chapter{Wnioski i rekomendacje}
+\label{chap:rozdzial8}
+
+\section{Podsumowanie wyników badań nad bezpieczeństwem i prywatnością w IoT}
+
+Przeprowadzone w niniejszej pracy kompleksowe badania miały na celu wieloaspektową ocenę stanu bezpieczeństwa i prywatności w systemach Internetu Rzeczy. Praca integruje dogłębną analizę teoretyczną (rozdziały 2-3) z praktycznymi testami w kontrolowanym środowisku (rozdziały 4-5) oraz weryfikacją zgodności z frameworkami regulacyjnymi (rozdział 6), kończąc się analizą optymalizacji (rozdział 7). Głównym celem było nie tylko zidentyfikowanie słabości teoretycznych, ale także empiryczne zweryfikowanie skuteczności, opłacalności i zgodności prawnej podstawowych oraz zaawansowanych środków ochrony.
+
+Integracja wyników ze wszystkich warstw badawczych pozwala na sformułowanie nadrzędnego wniosku: pomimo istnienia zaawansowanych technologii kryptograficznych, restrykcyjnych regulacji i dojrzałych frameworków bezpieczeństwa, fundamentalnym problemem IoT pozostaje luka między teorią a praktyką wdrażania zabezpieczeń. Badania wykazały, że nawet podstawowe, niskokosztowe środki ochrony, gdy są prawidłowo zastosowane, są wysoce skuteczne, lecz są często pomijane zarówno przez producentów urządzeń konsumenckich, jak i integratorów systemów.
+
+Poniższa tabela \ref{tab:wyniki-badan45} przedstawia syntezę kluczowych ustaleń z każdego obszaru badawczego, ukazując spójność między analizą teoretyczną a wynikami empirycznymi:
+
+\begin{landscape}
+\begin{table}[htbp]
+\centering
+\small
+\caption{Synteza kluczowych wyników badań we wszystkich analizowanych obszarach}
+\label{tab:synteza-badan}
+\renewcommand{\arraystretch}{1.1}
+\setlength{\tabcolsep}{8pt}
+\begin{tabular}{|p{4cm}|p{9cm}|p{9cm}|} 
+\hline
+\begin{tabular}{@{}c@{}}\textbf{Analiza teoretyczna} \\ (Rozdz. 2, 3)\end{tabular} 
+& Zidentyfikowano inherentne napięcie między ograniczonymi zasobami urządzeń IoT a złożonością nowoczesnych zabezpieczeń i wymogami regulacyjnymi. Architektura rozproszona IoT znacząco zwiększa powierzchnię ataku.
+& Konieczność opracowywania i stosowania lekkich (lightweight) algorytmów kryptograficznych oraz architektur bezpieczeństwa projektowanych specjalnie z myślą o ograniczeniach IoT, a nie adaptowanych z innych dziedzin. \\
+\hline
+\begin{tabular}{@{}c@{}}\textbf{Środowisko testowe} \\ (Rozdz. 4)\end{tabular} 
+& Skalowalne, modułowe środowisko testowe, odzwierciedlające heterogeniczną architekturę IoT (urządzenie-brzeg-chmura), okazało się kluczowe dla wiarygodnej symulacji realnych zagrożeń i precyzyjnego pomiaru skutków oraz overheadu zabezpieczeń.
+& Zaprojektowane środowisko stanowi wzorcowy model do ciągłych testów penetracyjnych, audytów bezpieczeństwa i walidacji nowych mechanizmów ochrony dla systemów IoT. \\
+\hline
+\begin{tabular}{@{}c@{}}\textbf{Testy praktyczne} \\ (Rozdz. 5)\end{tabular} 
+& \textbf{Podatność:} Potwierdzono krytyczne luki we wszystkich testowanych warstwach (MITM, sniffing, brute-force, DDoS), co bezpośrednio weryfikuje tezę o szerokiej powierzchni ataku postawioną w analizie teoretycznej.
+& Bezwzględna konieczność stosowania zabezpieczeń wielowarstwowych (defense in depth) oraz regularnych testów penetracyjnych, nawet w podstawowych konfiguracjach. \\
+\cline{2-3}
+& \textbf{Skuteczność:} Wdrożenie środków takich jak TLS, fail2ban, iptables czy silne uwierzytelnianie w wysokim stopniu zneutralizowało zagrożenia, przy czym koszt wydajnościowy (overhead) był stosunkowo niski i akceptowalny, co przeczy częstym wymówkom producentów.
+& Podstawowe środki ochrony są wysoce opłacalne i must-have. Ich pomijanie wynika bardziej z zaniedbań i chęci obniżenia kosztów niż z technicznych ograniczeń. \\
+\hline
+\begin{tabular}{@{}c@{}}\textbf{Zgodność regulacyjna} \\ (Rozdz. 6)\end{tabular} 
+& Stwierdzono głęboką rozbieżność między rygorystycznymi wymogami prawnymi (RODO, HIPAA) a praktyką rynkową. Wiele popularnych urządzeń nie spełnia podstawowych standardów, narażając użytkowników na ryzyko i wystawiając organizacje na wysokie kary.
+& Istnieje pilna potrzeba wprowadzenia obowiązkowych certyfikacji i audytów pod kątem zgodności prawnej już na etapie projektowania (Privacy \& Security by Design), szczególnie dla urządzeń przetwarzających dane wrażliwe. \\
+\hline
+\begin{tabular}{@{}c@{}}\textbf{Optymalizacja} \\ (Rozdz. 7)\end{tabular} 
+& Badania potwierdziły, że optymalizacja wyboru algorytmów (np. ECC zamiast RSA) i ich parametrów może radykalnie zmniejszyć obciążenie systemu przy zachowaniu wysokiego poziomu bezpieczeństwa.
+& Kluczowe jest świadome zarządzanie kompromisem między siłą zabezpieczeń, wydajnością a żywotnością baterii. Producenci powinni zapewniać elastyczne profile bezpieczeństwa dostosowane do kontekstu użycia urządzenia. \\
+\hline
+\label{tab:wyniki-badan45}
+\end{tabular}
+\end{table}
+\end{landscape}
+
+Przeprowadzone badania pozwoliły w pełni zrealizować postawiony cel badawczy oraz potwierdzić sformułowane hipotezy. W szczególności:
+\begin{itemize}
+    \item \textbf{Hipoteza H1} została zweryfikowana poprzez testy praktyczne, które wykazały znaczące zmniejszenie ryzyka naruszeń prywatności.
+    \item \textbf{Hipoteza H2} potwierdzona – podstawowe mechanizmy ochrony są skuteczne i wydajne.
+    \item \textbf{Hipoteza H3} została potwierdzona w analizie regulacyjnej, wykazując rozbieżności między wymogami a rzeczywistym stanem.
+    \item \textbf{Hipoteza H4} została potwierdzona w badaniach optymalizacyjnych, pokazując możliwość zwiększenia wydajności przy zachowaniu bezpieczeństwa.
+\end{itemize}
+
+
+\section{Napotkane problemy i ograniczenia}
+
+W trakcie realizacji badań napotkano na szereg problemów i ograniczeń, które wpłynęły na zakres i metodologię pracy, a które należy uwzględnić przy interpretacji wyników:
+
+1.  \textbf{Ograniczenia sprzętowe i finansowe}: Badania przeprowadzono głównie na urządzeniach klasy konsumenckiej (Raspberry Pi, Xiaomi Pet Fountain). Testy nie objęły w pełni wyspecjalizowanych, przemysłowych urządzeń IoT (IIoT) o wyższych wymaganiach QoS, innym profilu zagrożeń i dłuższym cyklu życia, gdzie problemy bezpieczeństwa mogą mieć jeszcze poważniejsze konsekwencje.
+
+2.  \textbf{Ograniczony zakres testów eksploitacji}: Pomimo szerokiego spektrum symulowanych ataków na warstwie sieciowej i aplikacyjnej, praca nie obejmowała zaawansowanych technik exploitacji luk w oprogramowaniu sprzętowym (firmware), ataków na łańcuch dostaw (supply chain) lub ataków fizycznych, które często wymagają specjalistycznej wiedzy, dostępu do zaawansowanego sprzętu (np. stanowisk do inżynierii wstecznej) i są niezwykle czasochłonne.
+
+3.  \textbf{Symulowany charakter środowiska}: Chociaż środowisko testowe starało się odzwierciedlić rzeczywiste warunki, pozostawało ono stosunkowo izolowane i pozbawione ekstremalnie złożonego, wielosystemowego ruchu sieciowego charakterystycznego dla dużych wdrożeń komercyjnych, korporacyjnych czy przemysłowych. Mogło to wpłynąć na wyniki testów wydajnościowych i odporności na skoordynowane, wielovektorowe ataki DDoS na bardzo dużą skalę.
+
+4.  \textbf{Dynamicznie zmieniający się landscape prawny i technologiczny}: Analiza zgodności opierała się na stanie prawnym i technologicznym na moment przeprowadzania badań. Regulacje (jak ePrivacy Regulation) oraz standardy techniczne ciągle ewoluują. Ponadto, szybko pojawiają się nowe protokoły, platformy i paradygmaty obliczeniowe (np. edge AI), które natychmiast stają się nowym frontem walki o bezpieczeństwo.
+
+5.  \textbf{"Czarna skrzynka" urządzeń komercyjnych}: W przypadku urządzenia Xiaomi, podobnie jak w przypadku większości produktów konsumenckich, analiza opierała się głównie na inżynierii wstecznej komunikacji sieciowej, a nie na dostępie do oficjalnej, szczegółowej dokumentacji architektury bezpieczeństwa lub kodu źródłowego. Pełna, dogłębna ocena wewnętrznych mechanizmów zabezpieczeń takich urządzeń była therefore z natury ograniczona.
+
+6.  \textbf{Ograniczenia pomiarowe}: Pomimo użycia zaawansowanych narzędzi monitorujących (Prometheus, Grafana), precyzyjny pomiar niektórych metryk, takich jak dokładne zużycie energii czy temperatura podzespołów w trakcie ataku, mógł być obarczony niewielkim marginesem błędu związanym z opóźnieniami w kolekcjonowaniu i agregacji danych.
+
+\section{Propozycje przyszłych badań}
+
+Wyniki niniejszej pracy oraz napotkane ograniczenia wyznaczają wyraźne i ambitne kierunki dla przyszłych badań naukowych w dziedzinie bezpieczeństwa i prywatności IoT:
+
+1.  \textbf{Rozszerzenie zakresu na IoT przemysłowe i krytyczną infrastrukturę}: Przeprowadzenie pogłębionych, longitudinalnych badań na urządzeniach przemysłowych (IIoT), systemach medycznych (IoMT) oraz krytycznej infrastrukturze (smart grid, systemy transportowe, wodociągowe). Gdzie stawka jest nieporównywalnie wyższa (bezpieczeństwo publiczne, ciągłość dostaw essential services), a profile zagrożeń bardziej złożone i ukierunkowane.
+
+2.  \textbf{Badanie zaawansowanych persistent threats (APTs) i ataków na łańcuch dostaw}: Pogłębiona analiza wyrafinowanych, ukierunkowanych ataków na łańcuch dostaw IoT, exploitacji luk zero-day w oprogramowaniu sprzętowym oraz skuteczności zaawansowanych mechanizmów obronnych, takich jak systemy wykrywania i reagowania na incydenty (IDRS) oraz platformy SOAR (Security Orchestration, Automation and Response) oparte na sztucznej inteligencji i uczeniu maszynowym, specjalnie dostosowane do specyfiki i skali ruchu w IoT.
+
+3.  \textbf{Opracowanie zautomatyzowanych frameworków audytowych i certyfikujących}: Stworzenie otwartoźródłowego, zautomatyzowanego frameworku, który na podstawie specyfikacji urządzenia, analizy ruchu i testów penetracyjnych będzie generował kompleksowy raport zgodności z głównymi regulacjami (RODO, HIPAA, NIS2, Cyber Resilience Act) oraz rekomendował konkretne, spersonalizowane działania naprawcze i optymalizacyjne. Takie narzędzie mogłoby stać się podstawą dla taniej i dostępnej certyfikacji.
+
+4.  \textbf{Kwantyfikacja i modelowanie wpływu bezpieczeństwa na wydajność i żywotność}: Przeprowadzenie pogłębionych, large-scale badań wydajnościowych i energetycznych mających na celu precyzyjne kwantyfikowanie overheadu wprowadzanego przez różne konfiguracje bezpieczeństwa (różne algorytmy szyfrowania, rodzaje certyfikatów, protokoły) w zależności od klasy urządzenia IoT, charakterystyki ruchu i zastosowania. Celem byłoby opracowanie modeli prognostycznych pomocnych w projektowaniu zoptymalizowanych systemów.
+
+5.  \textbf{Badania socjotechniczne, ekonomiczne i świadomości użytkowników}: Zbadanie, w jaki sposób czynnik ludzki, czynniki ekonomiczne i brak świadomości wpływają na skuteczność zabezpieczeń IoT. Badania powinny objąć analizę: skuteczności różnych metod edukowania użytkowników o ryzyku, ich gotowości do zapłacenia premium za bezpieczeństwo, podatności administratorów na phishing targetujący interfejsy zarządzania IoT oraz efektywności regulacji rynkowych w wymuszaniu wyższych standardów.
+
+6.  \textbf{Bezpieczeństwo nowych paradygmatów obliczeniowych w IoT}: Badanie wyzwań bezpieczeństwa związanych z integracją IoT z przełomowymi technologiami, takimi jak: przetwarzanie brzegowe z wykorzystaniem AI/ML (Edge AI), obliczenia kwantowe (i związane z tym zagrożenie dla kryptografii), zaawansowane sieci 5G/6G oraz blockchain dla tożsamości urządzeń i śledzenia łańcucha dostaw.
+
+
+
+\section{Podsumowanie}
+
+Podsumowując, niniejsza praca dostarcza holistycznego, praktycznego i aktualnego obrazu wyzwań oraz możliwości w zakresie bezpieczeństwa i prywatności w ekosystemie IoT. Dowodzi ona, że chociaż wyzwania są fundamentalne i wynikają z samej natury rozproszonej, heterogenicznej architektury IoT, to równocześnie dostępne są skuteczne, realne do wdrożenia i często niskokosztowe środki zaradcze. Kluczowe dla zrównoważonej przyszłości Internetu Rzeczy jest porzucenie reaktywnego podejścia „łataj po ataku” na rzecz proaktywnego, holistycznego myślenia, które integruje:
+
+\begin{itemize}
+    \item \textbf{Technologię}: Obowiązkowe, inteligentne wdrażanie sprawdzonych i zoptymalizowanych zabezpieczeń (szyfrowanie, uwierzytelnianie, aktualizacje) już na etapie projektowania, z poszanowaniem ograniczeń zasobowych.
+    \item \textbf{Procesy}: Ciągłe, regularne audyty, testy penetracyjne, zarządzanie podatnościami i incydentami oraz zarządzanie ryzykiem stają się niezbędnymi elementami cyklu życia produktu IoT.
+    \item \textbf{Regulacje i zgodność}: Ścisła integracja z zasadami Privacy \& Security by Design oraz by Default, traktowana nie jako przymus, ale jako przewaga konkurencyjna i element budowy zaufania.
+    \item \textbf{Edukację i świadomość}: Aktywne podnoszenie świadomości i kompetencji wszystkich uczestników ekosystemu – od projektantów i producentów, przez integratorów i auditorów, na końcowych użytkownikach skończywszy.
+\end{itemize}
+
+Tylko takie wielowymiarowe, skoordynowane i odpowiedzialne działanie pozwoli na zbudowanie trwałego zaufania i zapewni \textbf{zrównoważony rozwój (sustainable development)} Internetu Rzeczy, gdzie nieustanne innowacje i korzyści gospodarcze nie będą odbywały się kosztem fundamentalnych praw do bezpieczeństwa i prywatności użytkowników oraz stabilności critical infrastructure. Przeprowadzone badania dobitnie pokazują, że jest to wyzwanie nie tyle technologiczne, ile przede wszystkim \textbf{organizacyjne, ekonomiczne i wilicyjne}.

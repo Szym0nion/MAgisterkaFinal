@@ -1,1 +1,1 @@
-# MAgisterkaFinal
+# MagisterkaV2
